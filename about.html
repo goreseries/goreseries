@@ -560,6 +560,13 @@
             
             nav ul {
                 gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero {
+                padding-top: 140px;
+                min-height: 50vh;
             }
             
             .hero h1 {
@@ -575,6 +582,16 @@
                 align-items: center;
             }
             
+            .btn {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .section {
+                padding: 4rem 0;
+            }
+            
             .section-title h2 {
                 font-size: 2.2rem;
             }
@@ -582,24 +599,115 @@
             .about-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+                text-align: center;
             }
             
             .about-stats {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .about-image {
+                height: 300px;
+                order: -1;
+            }
+            
+            .about-image i {
+                font-size: 6rem;
             }
             
             .team-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .team-member {
+                padding: 1.5rem 1rem;
+            }
+            
+            .member-photo {
+                width: 100px;
+                height: 100px;
             }
             
             .values-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .value-card {
+                padding: 1.5rem;
+            }
+            
+            .value-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .value-icon i {
+                font-size: 1.5rem;
             }
         }
 
         @media (max-width: 480px) {
-            .values-grid {
-                grid-template-columns: 1fr;
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                font-size: 1.8rem;
+            }
+            
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .stat-item {
+                padding: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .member-name {
+                font-size: 1.1rem;
+            }
+            
+            .value-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                width: 95%;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav ul {
+                gap: 0.5rem;
+            }
+            
+            nav a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
             }
         }
     </style>
@@ -686,63 +794,63 @@
         </div>
     </section>
 
-<!-- Team Section -->
-<section class="section" id="team">
-    <div class="container">
-        <div class="section-title">
-            <h2>Наша команда</h2>
+    <!-- Team Section -->
+    <section class="section" id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наша команда</h2>
+            </div>
+            <div class="team-grid">
+                <!-- Член команды 1 -->
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="img/hacker.jpg" alt="HACKER2912">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">HACKER2912</h3>
+                        <div class="member-role">Руководитель Продакшена</div>
+                        <p class="member-bio">Создатель проекта "Атака читеров". Отвечает за общую концепцию и режиссуру сериалов.</p>
+                    </div>
+                </div>
+                
+                <!-- Член команды 2 -->
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="img/rinswent.jpg" alt="Rinswent">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Rinswent</h3>
+                        <div class="member-role">Создатель проекта: "Кондиции..."</div>
+                        <p class="member-bio">Автор культового сериала "Кондиции...". Специализируется на создании глубоких сюжетных линий.</p>
+                    </div>
+                </div>
+                
+                <!-- Член команды 3 -->
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="img/nngb.jpg" alt="nngb">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">nngb</h3>
+                        <div class="member-role">Сценарист</div>
+                        <p class="member-bio">Создатель проекта "Литвин играет в GoreBox" и сценарист проекта "Атака читеров".</p>
+                    </div>
+                </div>
+                
+                <!-- Член команды 4 -->
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="img/deadman.png" alt="DEADMANCHIK">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">DEADMANCHIK</h3>
+                        <div class="member-role">Сценарист</div>
+                        <p class="member-bio">Сценарист проекта "Атака читеров".</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="team-grid">
-            <!-- Член команды 1 -->
-            <div class="team-member">
-                <div class="member-photo">
-                    <img src="img/hacker.jpg" alt="HACKER2912">
-                </div>
-                <div class="member-info">
-                    <h3 class="member-name">HACKER2912</h3>
-                    <div class="member-role">Руководитель Продакшена</div>
-                    <p class="member-bio">Создатель проекта "Атака читеров". Отвечает за общую концепцию и режиссуру сериалов.</p>
-                </div>
-            </div>
-            
-            <!-- Член команды 2 -->
-            <div class="team-member">
-                <div class="member-photo">
-                    <img src="img/rinswent.jpg" alt="Rinswent">
-                </div>
-                <div class="member-info">
-                    <h3 class="member-name">Rinswent</h3>
-                    <div class="member-role">Создатель проекта: "Кондиции..."</div>
-                    <p class="member-bio">Автор культового сериала "Кондиции...". Специализируется на создании глубоких сюжетных линий.</p>
-                </div>
-            </div>
-            
-            <!-- Член команды 3 -->
-            <div class="team-member">
-                <div class="member-photo">
-                    <img src="img/nngb.jpg" alt="nngb">
-                </div>
-                <div class="member-info">
-                    <h3 class="member-name">nngb</h3>
-                    <div class="member-role">Сценарист</div>
-                    <p class="member-bio">Создатель проекта "Литвин играет в GoreBox" и сценарист проекта "Атака читеров".</p>
-                </div>
-            </div>
-            
-            <!-- Член команды 4 -->
-            <div class="team-member">
-                <div class="member-photo">
-                    <img src="img/deadman.png" alt="DEADMANCHIK">
-                </div>
-                <div class="member-info">
-                    <h3 class="member-name">DEADMANCHIK</h3>
-                    <div class="member-role">Сценарист</div>
-                    <p class="member-bio">Сценарист проекта "Атака читеров".</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
     <!-- Values Section -->
     <section class="section" id="values">

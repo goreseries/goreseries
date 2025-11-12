@@ -606,16 +606,25 @@
             
             nav ul {
                 gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .project-hero {
+                padding-top: 140px;
+                min-height: 50vh;
             }
             
             .project-hero-content {
                 flex-direction: column;
                 text-align: center;
+                gap: 2rem;
             }
             
             .project-poster {
                 flex: 0 0 auto;
                 width: 250px;
+                margin: 0 auto;
             }
             
             .project-info h1 {
@@ -624,10 +633,23 @@
             
             .project-meta {
                 justify-content: center;
+                flex-wrap: wrap;
             }
             
             .btn-group {
                 justify-content: center;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .section {
+                padding: 4rem 0;
             }
             
             .section-title h2 {
@@ -636,15 +658,102 @@
             
             .episodes-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
             .video-container {
                 width: 95%;
+                margin: 1rem;
             }
 
             .video-player,
             .video-placeholder {
                 height: 300px;
+            }
+            
+            .episode-img {
+                height: 150px;
+            }
+            
+            .episode-info {
+                padding: 1.2rem;
+            }
+            
+            .episode-info h3 {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .project-hero {
+                padding-top: 120px;
+            }
+            
+            .project-info h1 {
+                font-size: 2rem;
+            }
+            
+            .project-description {
+                font-size: 1rem;
+            }
+            
+            .project-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                font-size: 1.8rem;
+            }
+            
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .video-player,
+            .video-placeholder {
+                height: 250px;
+            }
+            
+            .video-header {
+                padding: 0.8rem;
+            }
+            
+            .video-title {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                width: 95%;
+            }
+            
+            .project-info h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav ul {
+                gap: 0.5rem;
+            }
+            
+            nav a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
             }
         }
 
@@ -718,7 +827,7 @@
                         <span><i class="fas fa-play-circle"></i> 4 серии</span>
                     </div>
                     <p class="project-description">
-                        «...Самый лучший сериал 2025! Хит столетия! Кондиции! Вас в буквальном смысле затащит в глубину сюжета, в котором полно смысла и поворотов. Кто то будет искать этот смысл, а кто-то будет просто угарать с видеоряда. Это вам решать - каким видеть данное кино...»
+                        «...Самый лучший сериал 2025! Хит столетия! Кондиции! Вас в буквальном смысла затащит в глубину сюжета, в котором полно смысла и поворотов. Кто то будет искать этот смысл, а кто-то будет просто угарать с видеоряда. Это вам решать - каким видеть данное кино...»
                     </p>
                     <div class="btn-group">
                         <a href="#episodes" class="btn">
