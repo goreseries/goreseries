@@ -283,6 +283,11 @@
             color: white;
         }
         
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
         /* Video Player */
         .video-player-container {
             display: none;
@@ -302,6 +307,13 @@
             margin-bottom: 20px;
             cursor: pointer;
             color: #065fd4;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #606060;
         }
         
         /* Responsive */
@@ -391,6 +403,11 @@
         
         <!-- Content -->
         <div class="content">
+            <!-- Loading -->
+            <div class="loading" id="loading">
+                Загрузка видео...
+            </div>
+            
             <!-- Video Player (hidden by default) -->
             <div class="video-player-container" id="videoPlayerContainer">
                 <div class="back-button" id="backButton">← Назад к видео</div>
@@ -433,12 +450,13 @@
                 <div class="form-group">
                     <label for="videoFile">Видео файл *</label>
                     <input type="file" id="videoFile" class="form-control" accept="video/*" required>
+                    <small style="color: #666;">Рекомендуем использовать небольшие видео (до 50MB)</small>
                 </div>
                 <div class="form-group">
                     <label for="thumbnailFile">Превью (опционально)</label>
                     <input type="file" id="thumbnailFile" class="form-control" accept="image/*">
                 </div>
-                <button type="submit" class="btn btn-primary">Загрузить</button>
+                <button type="submit" class="btn btn-primary" id="submitBtn">Загрузить</button>
             </form>
         </div>
     </div>
@@ -456,6 +474,8 @@
         const videoPlayerContainer = document.getElementById('videoPlayerContainer');
         const videoPlayer = document.getElementById('videoPlayer');
         const backButton = document.getElementById('backButton');
+        const loading = document.getElementById('loading');
+        const submitBtn = document.getElementById('submitBtn');
         
         // User uploaded videos (stored in localStorage)
         let userVideos = JSON.parse(localStorage.getItem('userVideos')) || [];
@@ -534,8 +554,18 @@
             });
         }
         
+        // Convert file to base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+        
         // Handle video upload
-        function handleVideoUpload(e) {
+        async function handleVideoUpload(e) {
             e.preventDefault();
             
             const title = document.getElementById('videoTitle').value;
@@ -548,44 +578,63 @@
                 return;
             }
             
-            // Generate a unique ID
-            const id = Date.now();
-            
-            // Create a thumbnail
-            let thumbnailUrl = 'https://via.placeholder.com/300x169/CCCCCC/000000?text=No+Preview';
-            
-            if (thumbnailFile) {
-                thumbnailUrl = URL.createObjectURL(thumbnailFile);
+            // Check file size (limit to 50MB for localStorage)
+            if (videoFile.size > 50 * 1024 * 1024) {
+                alert('Файл слишком большой. Пожалуйста, выберите видео до 50MB.');
+                return;
             }
             
-            // Create video URL
-            const videoUrl = URL.createObjectURL(videoFile);
+            // Show loading and disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Загрузка...';
+            loading.style.display = 'block';
             
-            // Create new video object
-            const newVideo = {
-                id,
-                title,
-                description,
-                channel: 'Мой канал',
-                views: '0',
-                date: 'Только что',
-                duration: '0:00',
-                thumbnail: thumbnailUrl,
-                videoUrl
-            };
-            
-            // Add to user videos and save to localStorage
-            userVideos.push(newVideo);
-            localStorage.setItem('userVideos', JSON.stringify(userVideos));
-            
-            // Reset form and close modal
-            uploadForm.reset();
-            uploadModal.style.display = 'none';
-            
-            // Update content state
-            checkContentState();
-            
-            alert('Видео успешно загружено!');
+            try {
+                // Generate a unique ID
+                const id = Date.now();
+                
+                // Convert files to base64
+                const videoBase64 = await fileToBase64(videoFile);
+                
+                let thumbnailBase64 = 'https://via.placeholder.com/300x169/CCCCCC/000000?text=No+Preview';
+                if (thumbnailFile) {
+                    thumbnailBase64 = await fileToBase64(thumbnailFile);
+                }
+                
+                // Create new video object
+                const newVideo = {
+                    id,
+                    title,
+                    description,
+                    channel: 'Мой канал',
+                    views: '0',
+                    date: new Date().toLocaleDateString('ru-RU'),
+                    duration: '0:00',
+                    thumbnail: thumbnailBase64,
+                    video: videoBase64
+                };
+                
+                // Add to user videos and save to localStorage
+                userVideos.push(newVideo);
+                localStorage.setItem('userVideos', JSON.stringify(userVideos));
+                
+                // Reset form and close modal
+                uploadForm.reset();
+                uploadModal.style.display = 'none';
+                
+                // Update content state
+                checkContentState();
+                
+                alert('Видео успешно загружено!');
+            } catch (error) {
+                console.error('Error uploading video:', error);
+                alert('Произошла ошибка при загрузке видео. Пожалуйста, попробуйте еще раз.');
+            } finally {
+                // Hide loading and enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Загрузить';
+                loading.style.display = 'none';
+            }
         }
         
         // Play selected video
@@ -596,7 +645,7 @@
             
             videoPlayer.innerHTML = `
                 <video controls autoplay style="width: 100%; height: 100%;">
-                    <source src="${video.videoUrl}" type="video/mp4">
+                    <source src="${video.video}" type="video/mp4">
                     Ваш браузер не поддерживает видео тег.
                 </video>
             `;
