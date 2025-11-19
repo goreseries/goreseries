@@ -221,6 +221,16 @@
             font-size: 14px;
         }
         
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ff0000;
+            cursor: pointer;
+            padding: 5px;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+        
         /* Upload Modal */
         .modal {
             display: none;
@@ -450,7 +460,6 @@
                 <div class="form-group">
                     <label for="videoFile">Видео файл *</label>
                     <input type="file" id="videoFile" class="form-control" accept="video/*" required>
-                    <small style="color: #666;">Рекомендуем использовать небольшие видео (до 50MB)</small>
                 </div>
                 <div class="form-group">
                     <label for="thumbnailFile">Превью (опционально)</label>
@@ -477,11 +486,19 @@
         const loading = document.getElementById('loading');
         const submitBtn = document.getElementById('submitBtn');
         
-        // User uploaded videos (stored in localStorage)
-        let userVideos = JSON.parse(localStorage.getItem('userVideos')) || [];
+        // Database
+        let db;
+        const DB_NAME = 'YouTubeCloneDB';
+        const DB_VERSION = 1;
+        const STORE_NAME = 'videos';
+        
+        // User uploaded videos
+        let userVideos = [];
         
         // Initialize the page
-        function init() {
+        async function init() {
+            await initDB();
+            await loadVideos();
             checkContentState();
             
             // Event listeners
@@ -497,6 +514,9 @@
             backButton.addEventListener('click', () => {
                 videoPlayerContainer.style.display = 'none';
                 checkContentState();
+                if (videoPlayer.firstChild) {
+                    videoPlayer.firstChild.pause();
+                }
                 videoPlayer.innerHTML = '';
             });
             
@@ -505,6 +525,66 @@
                 if (e.target === uploadModal) {
                     uploadModal.style.display = 'none';
                 }
+            });
+        }
+        
+        // Initialize IndexedDB
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => {
+                    db = request.result;
+                    resolve();
+                };
+                
+                request.onupgradeneeded = (event) => {
+                    const database = event.target.result;
+                    if (!database.objectStoreNames.contains(STORE_NAME)) {
+                        const store = database.createObjectStore(STORE_NAME, { keyPath: 'id' });
+                        store.createIndex('title', 'title', { unique: false });
+                    }
+                };
+            });
+        }
+        
+        // Load videos from IndexedDB
+        async function loadVideos() {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.getAll();
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => {
+                    userVideos = request.result;
+                    resolve();
+                };
+            });
+        }
+        
+        // Save video to IndexedDB
+        async function saveVideo(video) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.add(video);
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve();
+            });
+        }
+        
+        // Delete video from IndexedDB
+        async function deleteVideo(id) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.delete(id);
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve();
             });
         }
         
@@ -545,20 +625,39 @@
                             <div class="video-title">${video.title}</div>
                             <div class="channel-name">${video.channel}</div>
                             <div class="video-stats">${video.views} просмотров • ${video.date}</div>
+                            <button class="delete-btn" onclick="deleteVideoHandler(${video.id})">Удалить</button>
                         </div>
                     </div>
                 `;
                 
-                videoCard.addEventListener('click', () => playVideo(video));
+                videoCard.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('delete-btn')) {
+                        playVideo(video);
+                    }
+                });
                 videoGrid.appendChild(videoCard);
             });
         }
         
-        // Convert file to base64
-        function fileToBase64(file) {
+        // Handle video deletion
+        async function deleteVideoHandler(id) {
+            if (confirm('Вы уверены, что хотите удалить это видео?')) {
+                try {
+                    await deleteVideo(id);
+                    userVideos = userVideos.filter(video => video.id !== id);
+                    checkContentState();
+                } catch (error) {
+                    console.error('Error deleting video:', error);
+                    alert('Ошибка при удалении видео');
+                }
+            }
+        }
+        
+        // Convert file to ArrayBuffer
+        function fileToArrayBuffer(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
-                reader.readAsDataURL(file);
+                reader.readAsArrayBuffer(file);
                 reader.onload = () => resolve(reader.result);
                 reader.onerror = error => reject(error);
             });
@@ -578,12 +677,6 @@
                 return;
             }
             
-            // Check file size (limit to 50MB for localStorage)
-            if (videoFile.size > 50 * 1024 * 1024) {
-                alert('Файл слишком большой. Пожалуйста, выберите видео до 50MB.');
-                return;
-            }
-            
             // Show loading and disable submit button
             submitBtn.disabled = true;
             submitBtn.textContent = 'Загрузка...';
@@ -593,12 +686,12 @@
                 // Generate a unique ID
                 const id = Date.now();
                 
-                // Convert files to base64
-                const videoBase64 = await fileToBase64(videoFile);
+                // Convert files to ArrayBuffer
+                const videoData = await fileToArrayBuffer(videoFile);
                 
-                let thumbnailBase64 = 'https://via.placeholder.com/300x169/CCCCCC/000000?text=No+Preview';
+                let thumbnailData = null;
                 if (thumbnailFile) {
-                    thumbnailBase64 = await fileToBase64(thumbnailFile);
+                    thumbnailData = await fileToArrayBuffer(thumbnailFile);
                 }
                 
                 // Create new video object
@@ -610,13 +703,17 @@
                     views: '0',
                     date: new Date().toLocaleDateString('ru-RU'),
                     duration: '0:00',
-                    thumbnail: thumbnailBase64,
-                    video: videoBase64
+                    videoData: videoData,
+                    thumbnailData: thumbnailData,
+                    videoType: videoFile.type,
+                    thumbnailType: thumbnailFile ? thumbnailFile.type : null
                 };
                 
-                // Add to user videos and save to localStorage
+                // Save to IndexedDB
+                await saveVideo(newVideo);
+                
+                // Add to local array
                 userVideos.push(newVideo);
-                localStorage.setItem('userVideos', JSON.stringify(userVideos));
                 
                 // Reset form and close modal
                 uploadForm.reset();
@@ -637,19 +734,30 @@
             }
         }
         
+        // Convert ArrayBuffer to Blob URL
+        function arrayBufferToBlobUrl(arrayBuffer, type) {
+            const blob = new Blob([arrayBuffer], { type });
+            return URL.createObjectURL(blob);
+        }
+        
         // Play selected video
         function playVideo(video) {
             videoGrid.style.display = 'none';
             emptyState.style.display = 'none';
             videoPlayerContainer.style.display = 'block';
             
+            const videoUrl = arrayBufferToBlobUrl(video.videoData, video.videoType);
+            
             videoPlayer.innerHTML = `
                 <video controls autoplay style="width: 100%; height: 100%;">
-                    <source src="${video.video}" type="video/mp4">
+                    <source src="${videoUrl}" type="${video.videoType}">
                     Ваш браузер не поддерживает видео тег.
                 </video>
             `;
         }
+        
+        // Make delete function global for onclick handler
+        window.deleteVideoHandler = deleteVideoHandler;
         
         // Initialize the application
         init();
