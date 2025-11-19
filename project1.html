@@ -699,7 +699,7 @@
             }
             
             .project-hero {
-                padding-top: 140px;
+                padding-top: 180px; /* Увеличил отступ для мобильных */
                 min-height: 80vh;
             }
             
@@ -781,7 +781,8 @@
 
         @media (max-width: 480px) {
             .project-hero {
-                padding-top: 120px;
+                padding-top: 200px; /* Еще больше увеличил для маленьких экранов */
+                min-height: 70vh; /* Немного уменьшил высоту для лучшего отображения */
             }
             
             .project-info h1 {
@@ -844,6 +845,11 @@
         @media (max-width: 360px) {
             .container {
                 width: 95%;
+            }
+            
+            .project-hero {
+                padding-top: 220px; /* Максимальный отступ для самых маленьких экранов */
+                min-height: 65vh;
             }
             
             .project-info h1 {
