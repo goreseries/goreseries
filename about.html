@@ -31,10 +31,36 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
+        }
+        
+        /* Разрешаем выделение текста */
+        p, h1, h2, h3, h4, h5, h6, span, a:not(.logo-icon):not(.discord-btn):not(.discord-btn-floating):not(.play-btn):not(.btn) {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        
+        /* Запрещаем выделение для изображений и интерактивных элементов */
+        .logo-icon, .logo-icon img, .project-img, .snowflake, 
+        .discord-btn, .discord-btn-floating, .play-btn, .btn,
+        nav a, .status-badge, .member-photo, .member-photo img,
+        .value-icon, .about-image {
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+        
+        /* Для интерактивных элементов возвращаем pointer-events */
+        .discord-btn, .discord-btn-floating, .play-btn, .btn, nav a {
+            pointer-events: auto;
         }
         
         /* Стили для скроллбара */
@@ -92,32 +118,12 @@
             -webkit-mask-image: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             mask-image: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             transform: rotate(90deg);
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            user-drag: none;
-            pointer-events: none;
         }
         
         .logo-icon img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            user-drag: none;
-            pointer-events: none;
         }
         
         .logo h1 {
@@ -126,10 +132,6 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         nav ul {
@@ -148,10 +150,6 @@
             padding: 0.8rem 1.2rem;
             border-radius: 8px;
             font-size: 1rem;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         nav a:hover, nav a.active {
@@ -187,10 +185,6 @@
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
             font-size: 0.95rem;
         }
         
@@ -217,10 +211,6 @@
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
             animation: float 3s ease-in-out infinite;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .discord-btn-floating:hover {
@@ -275,10 +265,6 @@
             font-size: 4rem; /* Увеличил размер шрифта */
             margin-bottom: 2rem; /* Увеличил отступ */
             line-height: 1.1;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .hero h1 .gradient-text {
@@ -296,10 +282,6 @@
             margin-left: auto;
             margin-right: auto;
             line-height: 1.7;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .btn {
@@ -316,10 +298,6 @@
             border: none;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .btn:hover {
@@ -361,10 +339,6 @@
             display: inline-block;
             padding-bottom: 1rem;
             position: relative;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .section-title h2::after {
@@ -638,25 +612,11 @@
             width: 30px;
             height: 30px;
             transform: rotate(90deg);
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            user-drag: none;
-            pointer-events: none;
         }
         
         .footer-logo h2 {
             font-size: 1.5rem;
             color: white;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .copyright {
@@ -665,10 +625,6 @@
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
             width: 100%;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         /* Снежинки */
@@ -689,10 +645,6 @@
             font-size: 1em;
             opacity: 0.8;
             animation: fall linear forwards;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
             pointer-events: none;
         }
         

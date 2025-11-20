@@ -31,10 +31,35 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
+        }
+        
+        /* Разрешаем выделение текста */
+        p, h1, h2, h3, h4, h5, h6, span, a:not(.logo-icon):not(.discord-btn):not(.discord-btn-floating):not(.play-btn):not(.btn) {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        
+        /* Запрещаем выделение для изображений и интерактивных элементов */
+        .logo-icon, .logo-icon img, .project-img, .snowflake, 
+        .discord-btn, .discord-btn-floating, .play-btn, .btn,
+        nav a, .status-badge {
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+        
+        /* Для интерактивных элементов возвращаем pointer-events */
+        .discord-btn, .discord-btn-floating, .play-btn, .btn, nav a {
+            pointer-events: auto;
         }
         
         /* Стили для скроллбара */
@@ -58,7 +83,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 1.2rem 0; /* Уменьшил отступ сверху */
+            padding: 1.2rem 0;
             background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -92,32 +117,12 @@
             -webkit-mask-image: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             mask-image: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             transform: rotate(90deg);
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            user-drag: none;
-            pointer-events: none;
         }
         
         .logo-icon img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            user-drag: none;
-            pointer-events: none;
         }
         
         .logo h1 {
@@ -126,16 +131,12 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         nav ul {
             display: flex;
             list-style: none;
-            gap: 1.5rem; /* Уменьшил gap между кнопками */
+            gap: 1.5rem;
             align-items: center;
         }
         
@@ -145,13 +146,9 @@
             font-weight: 600;
             transition: all 0.3s ease;
             position: relative;
-            padding: 0.8rem 1.2rem; /* Увеличил padding для больших кнопок */
+            padding: 0.8rem 1.2rem;
             border-radius: 8px;
-            font-size: 1rem; /* Увеличил размер шрифта */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+            font-size: 1rem;
         }
         
         nav a:hover, nav a.active {
@@ -162,7 +159,7 @@
         nav a::after {
             content: '';
             position: absolute;
-            bottom: 6px; /* Поднял линию ниже */
+            bottom: 6px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
@@ -172,7 +169,7 @@
         }
         
         nav a:hover::after, nav a.active::after {
-            width: 70%; /* Сделал линию короче */
+            width: 70%;
         }
         
         .discord-btn {
@@ -181,17 +178,13 @@
             gap: 8px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 0.9rem 1.6rem; /* Увеличил кнопку Discord */
+            padding: 0.9rem 1.6rem;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            font-size: 0.95rem; /* Увеличил шрифт */
+            font-size: 0.95rem;
         }
         
         .discord-btn:hover {
@@ -206,7 +199,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            padding-top: 70px; /* Уменьшил отступ сверху для героя */
+            padding-top: 70px;
         }
         
         .hero-bg {
@@ -232,10 +225,6 @@
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
             line-height: 1.1;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .hero h1 .gradient-text {
@@ -251,10 +240,6 @@
             color: rgba(255, 255, 255, 0.8);
             max-width: 600px;
             line-height: 1.7;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .btn {
@@ -271,10 +256,6 @@
             border: none;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .btn:hover {
@@ -315,10 +296,6 @@
             display: inline-block;
             padding-bottom: 1rem;
             position: relative;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .section-title h2::after {
@@ -348,10 +325,6 @@
             cursor: pointer;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .project-card::before {
@@ -371,7 +344,6 @@
             opacity: 1;
         }
         
-        /* Эффект сияния из оригинального кода */
         .project-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(108, 99, 255, 0.3);
@@ -383,10 +355,6 @@
             background-position: center;
             position: relative;
             overflow: hidden;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .project-img::after {
@@ -435,13 +403,8 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
-        /* Эффект блика при наведении на кнопку */
         .play-btn::before {
             content: '';
             position: absolute;
@@ -477,20 +440,12 @@
             font-size: 1.5rem;
             margin-bottom: 0.8rem;
             color: white;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .project-info p {
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 1.5rem;
             line-height: 1.6;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .project-meta {
@@ -498,10 +453,6 @@
             justify-content: space-between;
             color: rgba(255, 255, 255, 0.5);
             font-size: 0.9rem;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .status-badge {
@@ -518,10 +469,6 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         /* Footer */
@@ -549,25 +496,11 @@
             width: 30px;
             height: 30px;
             transform: rotate(90deg);
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            user-drag: none;
-            pointer-events: none;
         }
         
         .footer-logo h2 {
             font-size: 1.5rem;
             color: white;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .copyright {
@@ -576,10 +509,6 @@
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
             width: 100%;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         /* Floating Discord Button */
@@ -600,10 +529,6 @@
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
             animation: float 3s ease-in-out infinite;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         
         .discord-btn-floating:hover {
@@ -641,10 +566,6 @@
             font-size: 1em;
             opacity: 0.8;
             animation: fall linear forwards;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
             pointer-events: none;
         }
         
@@ -900,7 +821,7 @@
                     </div>
                 </div>
 
-                <!-- Проект 4 - GoreРозы (В разработке) -->
+                <!-- Проект 4 - Новый проект (В разработке) -->
                 <div class="project-card">
                     <div class="project-img" style="background-image: url('img/gore_rozy.jpg'); position: relative;">
                         <div class="status-badge">
@@ -908,7 +829,7 @@
                         </div>
                     </div>
                     <div class="project-info">
-                        <h3>GoreРозы</h3>
+                        <h3>Новый проект</h3>
                         <p>Новый проект в разработке. Скоро здесь появится что-то особенное...</p>
                         <div class="project-meta">
                             <span>By GoreSeries Team</span>
