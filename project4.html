@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проект 6.7 - GoreSeries Продакшн</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #564FD9;
+            --secondary: #FF6584;
+            --accent: #36D1DC;
+            --dark: #121212;
+            --darker: #0A0A0A;
+            --light: #F5F5F7;
+            --gray: #2A2A2E;
+            --card-bg: rgba(30, 30, 35, 0.7);
+            --electric-blue: #0077ff;
+            --lightning-yellow: #ffdd59;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Запрещаем выделение ТОЛЬКО для изображений */
+        img {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+        
+        /* Стили для скроллбара */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--electric-blue) 0%, var(--lightning-yellow) 100%);
+            border-radius: 5px;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: brightness(0) invert(1);
+            -webkit-mask-image: linear-gradient(135deg, var(--electric-blue) 0%, var(--lightning-yellow) 100%);
+            mask-image: linear-gradient(135deg, var(--electric-blue) 0%, var(--lightning-yellow) 100%);
+            transform: rotate(90deg);
+            /* УБРАНО МИГАНИЕ: анимация boltFlash удалена */
+        }
+        
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--electric-blue) 0%, var(--lightning-yellow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        nav a:hover, nav a.active {
+            color: white;
+            background: rgba(0, 119, 255, 0.1);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--electric-blue), var(--lightning-yellow));
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after, nav a.active::after {
+            width: 70%;
+        }
+        
+        .discord-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--electric-blue) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 0.9rem 1.6rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 119, 255, 0.3);
+            font-size: 0.95rem;
+        }
+        
+        .discord-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 119, 255, 0.4);
+        }
+        
+        /* Floating Discord Button */
+        .discord-btn-floating {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--electric-blue) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 119, 255, 0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .discord-btn-floating:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 119, 255, 0.5);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        /* Project Hero Section */
+        .project-hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 70px;
+        }
+        
+        .project-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(0, 119, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 221, 89, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(54, 209, 220, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .project-hero-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .project-poster {
+            flex: 0 0 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 119, 255, 0.3);
+        }
+        
+        .project-poster img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .project-info {
+            flex: 1;
+        }
+        
+        .project-info h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--electric-blue) 0%, var(--lightning-yellow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Смайлик молнии ⚡ - БЕЗ РАЗМЫТОСТИ (text-shadow убран) */
+        .project-title-emoji {
+            color: var(--lightning-yellow);
+            animation: electricPulse 1.5s infinite;
+            display: inline-block;
+        }
+        
+        /* Новая анимация для молнии - более резкая, без плавных переходов */
+        @keyframes electricPulse {
+            0%, 70% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            71% {
+                opacity: 1;
+                transform: scale(1.3);
+            }
+            72% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            73% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            74% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            85% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            86% {
+                opacity: 0.9;
+                transform: scale(1.4);
+            }
+            87% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            88% {
+                opacity: 0.9;
+                transform: scale(1.3);
+            }
+            89% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .project-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .project-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--electric-blue) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 119, 255, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 119, 255, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--electric-blue);
+            border: 2px solid var(--electric-blue);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(0, 119, 255, 0.1);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        /* Episodes Section */
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            display: inline-block;
+            padding-bottom: 1rem;
+            position: relative;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--electric-blue), var(--lightning-yellow));
+            border-radius: 2px;
+        }
+        
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .episode-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+        
+        .episode-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 119, 255, 0.1) 0%, rgba(255, 221, 89, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        
+        .episode-card:hover::before {
+            opacity: 1;
+        }
+        
+        .episode-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 119, 255, 0.3);
+        }
+        
+        .episode-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .episode-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 119, 255, 0.9) 0%, rgba(255, 221, 89, 0.8) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+        
+        .episode-card:hover .episode-overlay {
+            opacity: 1;
+        }
+        
+        .episode-info {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .episode-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--electric-blue) 0%, var(--lightning-yellow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .episode-info p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+        
+        .episode-meta {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        .status-badge {
+            background: var(--electric-blue);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-badge.in-progress {
+            background: var(--lightning-yellow);
+            color: var(--dark);
+        }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .video-container {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            background: var(--dark);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--electric-blue);
+        }
+
+        .video-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--electric-blue) 0%, var(--lightning-yellow) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .video-content {
+            width: 100%;
+            position: relative;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 400px;
+            background: #000;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--electric-blue) 0%, var(--lightning-yellow) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.7);
+            gap: 1rem;
+        }
+
+        .video-placeholder i {
+            font-size: 4rem;
+            color: var(--dark);
+        }
+
+        .video-placeholder p {
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 80%;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 3rem 0 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-logo .logo-icon {
+            width: 30px;
+            height: 30px;
+            transform: rotate(90deg);
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        
+        /* Снежинки */
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            opacity: 0.8;
+            animation: fall linear forwards;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Молнии в фоне - БЕЗ РАЗМЫТОСТИ */
+        .lightning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.03;
+        }
+        
+        .lightning-bolt {
+            position: absolute;
+            color: var(--lightning-yellow);
+            font-size: 8rem;
+            opacity: 0;
+            animation: lightningFlash 15s infinite;
+            /* Убраны все эффекты размытия */
+        }
+        
+        @keyframes lightningFlash {
+            0%, 92% {
+                opacity: 0;
+            }
+            93% {
+                opacity: 0.15;
+            }
+            94% {
+                opacity: 0;
+            }
+            95% {
+                opacity: 0.2;
+            }
+            96% {
+                opacity: 0;
+            }
+            97% {
+                opacity: 0.1;
+            }
+            98% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .project-hero {
+                padding-top: 180px;
+                min-height: 80vh;
+            }
+            
+            .project-hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .project-poster {
+                flex: 0 0 auto;
+                width: 250px;
+                margin: 0 auto;
+            }
+            
+            .project-info h1 {
+                font-size: 2.5rem;
+            }
+            
+            .project-meta {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .btn-group {
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .section {
+                padding: 4rem 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .episodes-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .video-container {
+                width: 95%;
+                margin: 1rem;
+            }
+
+            .video-player,
+            .video-placeholder {
+                height: 300px;
+            }
+            
+            .episode-img {
+                height: 150px;
+            }
+            
+            .episode-info {
+                padding: 1.2rem;
+            }
+            
+            .episode-info h3 {
+                font-size: 1.1rem;
+            }
+            
+            .discord-btn-floating {
+                bottom: 20px;
+                right: 20px;
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .project-hero {
+                padding-top: 200px;
+                min-height: 70vh;
+            }
+            
+            .project-info h1 {
+                font-size: 2rem;
+            }
+            
+            .project-description {
+                font-size: 1rem;
+            }
+            
+            .project-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+            }
+            
+            nav a {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .video-player,
+            .video-placeholder {
+                height: 250px;
+            }
+            
+            .video-header {
+                padding: 0.8rem;
+            }
+            
+            .video-title {
+                font-size: 1rem;
+            }
+            
+            .discord-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.8rem;
+            }
+            
+            .discord-btn-floating {
+                bottom: 15px;
+                right: 15px;
+                padding: 0.7rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                width: 95%;
+            }
+            
+            .project-hero {
+                padding-top: 220px;
+                min-height: 65vh;
+            }
+            
+            .project-info h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav ul {
+                gap: 0.5rem;
+            }
+            
+            nav a {
+                font-size: 0.8rem;
+                padding: 0.5rem 0.7rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .discord-btn-floating span {
+                display: none;
+            }
+            
+            .discord-btn-floating {
+                padding: 0.8rem;
+                border-radius: 50%;
+            }
+        }
+
+        /* Скрываем элементы управления скачиванием */
+        .video-player::-webkit-media-controls-download-button {
+            display: none !important;
+        }
+        
+        .video-player::-webkit-media-controls {
+            -webkit-justify-content: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Снежинки -->
+    <div class="snowflakes" id="snowflakes"></div>
+    
+    <!-- Молнии в фоне -->
+    <div class="lightning" id="lightning"></div>
+    
+    <!-- Floating Discord Button -->
+    <a href="https://discord.gg/HNZqagrNCd" class="discord-btn-floating" target="_blank">
+        <i class="fab fa-discord"></i>
+        <span>Discord</span>
+    </a>
+    
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-container">
+            <div class="video-header">
+                <div class="video-title" id="modalTitle">Просмотр серии</div>
+                <button class="close-btn" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="video-content" id="videoContent">
+                <div class="video-placeholder">
+                    <span style="font-size: 4rem;">⚡</span>
+                    <p>Серия в разработке. Скоро здесь появится видео!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="img/snej.png" alt="Snowflake">
+                    </div>
+                    <h1>GoreSeries</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="index.html#projects">Проекты</a></li>
+                        <li><a href="about.html">О нас</a></li>
+                        <li>
+                            <a href="https://discord.gg/HNZqagrNCd" class="discord-btn" target="_blank">
+                                <i class="fab fa-discord"></i>
+                                Discord
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Project Hero Section -->
+    <section class="project-hero">
+        <div class="project-hero-bg"></div>
+        <div class="container">
+            <div class="project-hero-content">
+                <div class="project-poster">
+                    <img src="img/67.jpg" alt="Проект 6.7">
+                </div>
+                <div class="project-info">
+                    <h1>Проект 6.7</h1>
+                    <div class="project-meta">
+                        <span><i class="fas fa-user"></i> By GoreSeries Team</span>
+                        <span><i class="fas fa-calendar"></i> 2025</span>
+                        <span><i class="fas fa-play-circle"></i> 6 серий</span>
+                    </div>
+                    <p class="project-description">
+                        История про то, как Альберт Эйнштейн предал Николу Теслу и украл его проект. После чего Альберт получил безграничную силу молнии и электричества. Теперь Тесла ищет способ вернуть своё изобретение и остановить безумного Эйнштейна.
+                    </p>
+                    <div class="btn-group">
+                        <a href="#episodes" class="btn">
+                            <i class="fas fa-play"></i>
+                            Все серии
+                        </a>
+                        <a href="index.html#projects" class="btn btn-outline">
+                            <i class="fas fa-arrow-left"></i>
+                            Назад к проектам
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Episodes Section -->
+    <section class="section" id="episodes">
+        <div class="container">
+            <div class="section-title">
+                <h2>Все серии</h2>
+            </div>
+            <div class="episodes-grid">
+                <!-- Серия 1 (В разработке) -->
+                <div class="episode-card">
+                    <div class="episode-img" style="background-image: url('img/67.jpg')"></div>
+                    <div class="episode-overlay">
+                        <div class="status-badge in-progress">В разработке</div>
+                    </div>
+                    <div class="episode-info">
+                        <h3>Серия 1: Начало проекта</h3>
+                        <p>Тесла создаёт своё величайшее изобретение.</p>
+                        <div class="episode-meta">
+                            <span>--:--</span>
+                            <span class="status-badge in-progress">В разработке</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Серия 2 (В разработке) -->
+                <div class="episode-card">
+                    <div class="episode-img" style="background-image: url('img/67.jpg')"></div>
+                    <div class="episode-overlay">
+                        <div class="status-badge in-progress">В разработке</div>
+                    </div>
+                    <div class="episode-info">
+                        <h3>Серия 2: Предательство</h3>
+                        <p>Эйнштейн крадёт проект Теслы.</p>
+                        <div class="episode-meta">
+                            <span>--:--</span>
+                            <span class="status-badge in-progress">В разработке</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Серия 3 (В разработке) -->
+                <div class="episode-card">
+                    <div class="episode-img" style="background-image: url('img/67.jpg')"></div>
+                    <div class="episode-overlay">
+                        <div class="status-badge in-progress">В разработке</div>
+                    </div>
+                    <div class="episode-info">
+                        <h3>Серия 3: Сила молнии</h3>
+                        <p>Эйнштейн получает невероятную силу.</p>
+                        <div class="episode-meta">
+                            <span>--:--</span>
+                            <span class="status-badge in-progress">В разработке</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Серия 4 (В разработке) -->
+                <div class="episode-card">
+                    <div class="episode-img" style="background-image: url('img/67.jpg')"></div>
+                    <div class="episode-overlay">
+                        <div class="status-badge in-progress">В разработке</div>
+                    </div>
+                    <div class="episode-info">
+                        <h3>Серия 4: Погоня</h3>
+                        <p>Тесла начинает охоту на Эйнштейна.</p>
+                        <div class="episode-meta">
+                            <span>--:--</span>
+                            <span class="status-badge in-progress">В разработке</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Серия 5 (В разработке) -->
+                <div class="episode-card">
+                    <div class="episode-img" style="background-image: url('img/67.jpg')"></div>
+                    <div class="episode-overlay">
+                        <div class="status-badge in-progress">В разработке</div>
+                    </div>
+                    <div class="episode-info">
+                        <h3>Серия 5: Схватка титанов</h3>
+                        <p>Первая битва гениальных учёных.</p>
+                        <div class="episode-meta">
+                            <span>--:--</span>
+                            <span class="status-badge in-progress">В разработке</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Серия 6 (В разработке) -->
+                <div class="episode-card">
+                    <div class="episode-img" style="background-image: url('img/67.jpg')"></div>
+                    <div class="episode-overlay">
+                        <div class="status-badge in-progress">В разработке</div>
+                    </div>
+                    <div class="episode-info">
+                        <h3>Серия 6: Финал</h3>
+                        <p>Решающая битва за контроль над энергией.</p>
+                        <div class="episode-meta">
+                            <span>--:--</span>
+                            <span class="status-badge in-progress">В разработке</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <img src="img/snej.png" alt="Snowflake">
+                    </div>
+                    <h2>GoreSeries Продакшн</h2>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 GoreSeries Продакшн.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Создание снежинок
+        function createSnowflakes() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const snowflakeCount = 50;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = '❄';
+                
+                // Случайные параметры для снежинок
+                const size = Math.random() * 1.5 + 0.5;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 10 + 5;
+                const animationDelay = Math.random() * 5;
+                
+                snowflake.style.left = `${left}vw`;
+                snowflake.style.fontSize = `${size}em`;
+                snowflake.style.animationDuration = `${animationDuration}s`;
+                snowflake.style.animationDelay = `${animationDelay}s`;
+                
+                snowflakesContainer.appendChild(snowflake);
+                
+                // Удаляем снежинку после завершения анимации
+                setTimeout(() => {
+                    snowflake.remove();
+                }, (animationDuration + animationDelay) * 1000);
+            }
+        }
+        
+        // Создание молний в фоне
+        function createLightning() {
+            const lightningContainer = document.getElementById('lightning');
+            const lightningCount = 3;
+            
+            for (let i = 0; i < lightningCount; i++) {
+                const lightning = document.createElement('div');
+                lightning.classList.add('lightning-bolt');
+                lightning.innerHTML = '⚡';
+                
+                // Случайная позиция
+                const left = Math.random() * 80 + 10;
+                const top = Math.random() * 80 + 10;
+                
+                lightning.style.left = `${left}vw`;
+                lightning.style.top = `${top}vh`;
+                lightning.style.fontSize = `${Math.random() * 5 + 6}rem`;
+                lightning.style.animationDelay = `${Math.random() * 15}s`;
+                lightning.style.transform = `rotate(${Math.random() * 45 - 22.5}deg)`;
+                
+                lightningContainer.appendChild(lightning);
+            }
+        }
+        
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            createSnowflakes();
+            createLightning();
+            
+            // Создаем снежинки каждые 2 секунды
+            setInterval(createSnowflakes, 2000);
+            
+            // Плавная прокрутка
+            document.querySelectorAll('nav a, .btn[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Обработчики для карточек серий
+            const videoModal = document.getElementById('videoModal');
+            const closeModal = document.getElementById('closeModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const episodeCards = document.querySelectorAll('.episode-card');
+
+            // Открытие модального окна при клике на карточку
+            episodeCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const episodeTitle = this.querySelector('h3').textContent;
+                    
+                    modalTitle.textContent = episodeTitle + ' - В разработке';
+                    videoModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // Закрытие модального окна
+            closeModal.addEventListener('click', function() {
+                videoModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Закрытие модального окна при клике вне его
+            videoModal.addEventListener('click', function(e) {
+                if (e.target === videoModal) {
+                    videoModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Закрытие модального окна клавишей ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                    videoModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
