@@ -59,7 +59,8 @@
         }
         
         /* Для интерактивных элементов возвращаем pointer-events */
-        .discord-btn, .discord-btn-floating, .play-btn, .btn, nav a {
+        .discord-btn, .discord-btn-floating, .play-btn, .btn, nav a,
+        .snow-toggle-btn {
             pointer-events: auto;
         }
         
@@ -216,6 +217,43 @@
         .discord-btn-floating:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 30px rgba(108, 99, 255, 0.5);
+        }
+        
+        /* Кнопка отключения снежинок */
+        .snow-toggle-btn {
+            position: fixed;
+            bottom: 90px; /* Над Discord кнопкой */
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--secondary) 0%, #ff4757 100%);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 101, 132, 0.4);
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .snow-toggle-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 101, 132, 0.5);
+        }
+        
+        .snow-toggle-btn.snow-disabled {
+            background: linear-gradient(135deg, #2ed573 0%, #1dd1a1 100%);
+            box-shadow: 0 8px 25px rgba(46, 213, 115, 0.4);
+        }
+        
+        .snow-toggle-btn.snow-disabled:hover {
+            box-shadow: 0 12px 30px rgba(46, 213, 115, 0.5);
         }
         
         @keyframes float {
@@ -758,6 +796,13 @@
                 padding: 0.8rem 1.2rem;
                 font-size: 0.9rem;
             }
+            
+            .snow-toggle-btn {
+                bottom: 70px;
+                right: 20px;
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -814,6 +859,13 @@
                 padding: 0.7rem 1rem;
                 font-size: 0.8rem;
             }
+            
+            .snow-toggle-btn {
+                bottom: 60px;
+                right: 15px;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.7rem;
+            }
         }
 
         @media (max-width: 360px) {
@@ -842,12 +894,27 @@
                 padding: 0.8rem;
                 border-radius: 50%;
             }
+            
+            .snow-toggle-btn span {
+                display: none;
+            }
+            
+            .snow-toggle-btn {
+                padding: 0.8rem;
+                border-radius: 50%;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Снежинки -->
     <div class="snowflakes" id="snowflakes"></div>
+    
+    <!-- Кнопка отключения снежинок -->
+    <button class="snow-toggle-btn" id="snowToggleBtn">
+        <i class="fas fa-snowflake"></i>
+        <span>Выкл снежинки</span>
+    </button>
     
     <!-- Floating Discord Button -->
     <a href="https://discord.gg/HNZqagrNCd" class="discord-btn-floating" target="_blank">
@@ -991,8 +1058,8 @@
                     </div>
                     <div class="member-info">
                         <h3 class="member-name">DEADMANCHIK</h3>
-                        <div class="member-role">Сценарист</div>
-                        <p class="member-bio">Сценарист проекта "Атака читеров".</p>
+                        <div class="member-role">Генерация сцен</div>
+                        <p class="member-bio">Состоит в команде "Генерации сцен" проекта "Атака читеров".</p>
                     </div>
                 </div>
                 
@@ -1004,7 +1071,7 @@
                     <div class="member-info">
                         <h3 class="member-name">Chertanov</h3>
                         <div class="member-role">Переводчик</div>
-                        <p class="member-bio">Переводчик проекта "Атака читеров".</p>
+                        <p class="member-bio">Переводчик проекта "Атака читеров". (муж дэдмена)</p>
                     </div>
                 </div>
             </div>
@@ -1066,8 +1133,31 @@
     </footer>
 
     <script>
+        // Состояние снежинок
+        let snowEnabled = true;
+        let snowInterval = null;
+        
+        // Проверяем сохраненное состояние в localStorage
+        function loadSnowState() {
+            const savedState = localStorage.getItem('snowEnabled');
+            if (savedState !== null) {
+                snowEnabled = savedState === 'true';
+                updateSnowToggleButton();
+                if (!snowEnabled) {
+                    stopSnowflakes();
+                }
+            }
+        }
+        
+        // Сохраняем состояние в localStorage
+        function saveSnowState() {
+            localStorage.setItem('snowEnabled', snowEnabled.toString());
+        }
+        
         // Создание снежинок
         function createSnowflakes() {
+            if (!snowEnabled) return;
+            
             const snowflakesContainer = document.getElementById('snowflakes');
             const snowflakeCount = 50;
             
@@ -1096,10 +1186,71 @@
             }
         }
         
-        // Создаем снежинки каждые 2 секунды
-        document.addEventListener('DOMContentLoaded', function() {
+        // Запуск создания снежинок
+        function startSnowflakes() {
             createSnowflakes();
-            setInterval(createSnowflakes, 2000);
+            snowInterval = setInterval(createSnowflakes, 2000);
+        }
+        
+        // Остановка создания снежинок
+        function stopSnowflakes() {
+            if (snowInterval) {
+                clearInterval(snowInterval);
+                snowInterval = null;
+            }
+            // Удаляем все существующие снежинки
+            const snowflakesContainer = document.getElementById('snowflakes');
+            snowflakesContainer.innerHTML = '';
+        }
+        
+        // Переключение состояния снежинок
+        function toggleSnowflakes() {
+            snowEnabled = !snowEnabled;
+            
+            if (snowEnabled) {
+                startSnowflakes();
+            } else {
+                stopSnowflakes();
+            }
+            
+            updateSnowToggleButton();
+            saveSnowState();
+        }
+        
+        // Обновление внешнего вида кнопки
+        function updateSnowToggleButton() {
+            const toggleBtn = document.getElementById('snowToggleBtn');
+            if (!toggleBtn) return; // Если кнопки нет на странице
+            
+            const icon = toggleBtn.querySelector('i');
+            const text = toggleBtn.querySelector('span');
+            
+            if (snowEnabled) {
+                toggleBtn.classList.remove('snow-disabled');
+                icon.className = 'fas fa-snowflake';
+                text.textContent = 'Выкл снежинки';
+            } else {
+                toggleBtn.classList.add('snow-disabled');
+                icon.className = 'fas fa-snowflake';
+                text.textContent = 'Вкл снежинки';
+            }
+        }
+        
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Загружаем сохраненное состояние
+            loadSnowState();
+            
+            // Запускаем снежинки если включены
+            if (snowEnabled) {
+                startSnowflakes();
+            }
+            
+            // Назначаем обработчик на кнопку
+            const toggleBtn = document.getElementById('snowToggleBtn');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', toggleSnowflakes);
+            }
             
             // Плавная прокрутка
             document.querySelectorAll('nav a, .btn[href^="#"]').forEach(anchor => {
