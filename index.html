@@ -7,16 +7,36 @@
     <link rel="icon" type="image/png" href="img/GSP_logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Стили для скроллбара */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-yellow) 100%);
+            border-radius: 6px;
+            border: 2px solid var(--dark-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-yellow) 100%);
+        }
+        
         :root {
-            --primary: #6C63FF;
-            --primary-dark: #564FD9;
-            --secondary: #FF6584;
-            --accent: #36D1DC;
-            --dark: #121212;
-            --darker: #0A0A0A;
-            --light: #F5F5F7;
-            --gray: #2A2A2E;
-            --card-bg: rgba(30, 30, 35, 0.7);
+            --primary-red: #c8102e;
+            --primary-yellow: #ffd700;
+            --dark-red: #8b0000;
+            --light-yellow: #fffacd;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --accent-red: #ff4757;
+            --accent-yellow: #ffdd59;
+            --discord-purple: #5865F2;
+            --discord-purple-dark: #4752C4;
         }
         
         * {
@@ -27,68 +47,24 @@
         }
         
         body {
-            background: var(--darker);
-            color: var(--light);
+            background: var(--dark-bg);
+            color: white;
             line-height: 1.6;
-            overflow-x: hidden;
             min-height: 100vh;
+            overflow-x: hidden;
         }
         
-        /* Разрешаем выделение текста */
-        p, h1, h2, h3, h4, h5, h6, span, a:not(.logo-icon):not(.discord-btn):not(.discord-btn-floating):not(.play-btn):not(.btn) {
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
-        }
-        
-        /* Запрещаем выделение для изображений и интерактивных элементов */
-        .logo-icon, .logo-icon img, .project-img, .snowflake, 
-        .discord-btn, .discord-btn-floating, .play-btn, .btn,
-        nav a, .status-badge {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            user-drag: none;
-            pointer-events: none;
-        }
-        
-        /* Для интерактивных элементов возвращаем pointer-events */
-        .discord-btn, .discord-btn-floating, .play-btn, .btn, nav a,
-        .snow-toggle-btn {
-            pointer-events: auto;
-        }
-        
-        /* Стили для скроллбара */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--dark);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 5px;
-        }
-        
-        /* Header */
+        /* Header Styles */
         header {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1.2rem 0;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
             z-index: 1000;
-            padding: 1.2rem 0;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
         }
         
         .container {
@@ -110,88 +86,113 @@
         }
         
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            filter: brightness(0) invert(1);
-            -webkit-mask-image: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            mask-image: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            transform: rotate(90deg);
+            color: var(--primary-yellow);
+            font-size: 2.2rem;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+            animation: pulse 2s infinite alternate;
         }
         
-        .logo-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
         
         .logo h1 {
             font-size: 1.8rem;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--accent-yellow) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
         nav ul {
             display: flex;
             list-style: none;
-            gap: 1.5rem;
+            gap: 2rem;
             align-items: center;
         }
         
         nav a {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
             position: relative;
-            padding: 0.8rem 1.2rem;
-            border-radius: 8px;
-            font-size: 1rem;
         }
         
-        nav a:hover, nav a.active {
-            color: white;
-            background: rgba(108, 99, 255, 0.1);
+        nav a:hover {
+            color: var(--primary-yellow);
+            background: rgba(255, 215, 0, 0.1);
         }
         
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transition: width 0.3s ease;
+        nav a.active {
+            color: var(--primary-yellow);
+            background: rgba(255, 215, 0, 0.15);
         }
         
-        nav a:hover::after, nav a.active::after {
-            width: 70%;
-        }
-        
-        .discord-btn {
+        /* Discord Button in Header */
+        .discord-btn-header {
             display: flex;
             align-items: center;
             gap: 8px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: var(--discord-purple);
             color: white;
-            padding: 0.9rem 1.6rem;
-            border-radius: 30px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
-            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3);
         }
         
-        .discord-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+        .discord-btn-header:hover {
+            background: var(--discord-purple-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(88, 101, 242, 0.4);
+        }
+        
+        /* Floating Discord Button */
+        .discord-btn-floating {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--discord-purple);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .discord-btn-floating:hover {
+            background: var(--discord-purple-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(88, 101, 242, 0.5);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
         }
         
         /* Hero Section */
@@ -201,7 +202,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            padding-top: 70px;
+            padding-top: 1px; /* Увеличил отступ сверху */
         }
         
         .hero-bg {
@@ -211,45 +212,48 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 10% 20%, rgba(108, 99, 255, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 101, 132, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(54, 209, 220, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(200, 16, 46, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
             z-index: -1;
         }
         
         .hero-content {
-            max-width: 700px;
+            max-width: 800px;
             position: relative;
             z-index: 2;
+            margin-top: 2rem; /* Добавил дополнительный отступ */
         }
         
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 1.5rem;
             line-height: 1.1;
-        }
-        
-        .hero h1 .gradient-text {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary-yellow) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: block;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--accent-red) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 2.5rem;
             color: rgba(255, 255, 255, 0.8);
             max-width: 600px;
-            line-height: 1.7;
         }
         
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--accent-yellow) 100%);
+            color: var(--dark-bg);
             padding: 1rem 2rem;
             border-radius: 50px;
             text-decoration: none;
@@ -257,23 +261,23 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
         }
         
         .btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(108, 99, 255, 0.4);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
         }
         
         .btn-outline {
             background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
+            color: var(--primary-yellow);
+            border: 2px solid var(--primary-yellow);
             box-shadow: none;
         }
         
         .btn-outline:hover {
-            background: rgba(108, 99, 255, 0.1);
+            background: rgba(255, 215, 0, 0.1);
         }
         
         .btn-group {
@@ -291,13 +295,17 @@
         .section-title {
             text-align: center;
             margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
         }
         
         .section-title h2 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             display: inline-block;
             padding-bottom: 1rem;
-            position: relative;
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--accent-yellow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .section-title h2::after {
@@ -308,7 +316,7 @@
             transform: translateX(-50%);
             width: 100px;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+            background: linear-gradient(90deg, var(--primary-red), var(--primary-yellow));
             border-radius: 2px;
         }
         
@@ -316,17 +324,19 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2.5rem;
+            position: relative;
+            z-index: 2;
         }
         
         .project-card {
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 16px;
             overflow: hidden;
             transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
             cursor: pointer;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .project-card::before {
@@ -336,7 +346,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(108, 99, 255, 0.1) 0%, rgba(54, 209, 220, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(200, 16, 46, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
             z-index: 1;
@@ -348,7 +358,7 @@
         
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.3);
+            box-shadow: 0 15px 40px rgba(200, 16, 46, 0.3);
         }
         
         .project-img {
@@ -359,77 +369,37 @@
             overflow: hidden;
         }
         
-        .project-img::after {
-            content: '';
+        /* Кнопка по центру баннера */
+        .banner-btn {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60%;
-            background: linear-gradient(to top, var(--card-bg), transparent);
-            z-index: 2;
-        }
-        
-        .project-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 3;
-        }
-        
-        .project-card:hover .project-overlay {
-            opacity: 1;
-        }
-        
-        .play-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--accent-yellow) 100%);
+            color: var(--dark-bg);
             padding: 0.8rem 1.5rem;
-            border-radius: 30px;
+            border-radius: 25px;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
-            transform: translateY(20px);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 4;
             opacity: 0;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
         }
         
-        .play-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .play-btn:hover::before {
-            left: 100%;
-        }
-        
-        .project-card:hover .play-btn {
-            transform: translateY(0);
+        .project-card:hover .banner-btn {
             opacity: 1;
         }
         
-        .play-btn:hover {
-            transform: scale(1.05) !important;
-            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.6);
+        .banner-btn:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7);
         }
         
         .project-info {
@@ -441,7 +411,9 @@
         .project-info h3 {
             font-size: 1.5rem;
             margin-bottom: 0.8rem;
-            color: white;
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--accent-yellow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .project-info p {
@@ -457,25 +429,9 @@
             font-size: 0.9rem;
         }
         
-        .status-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            color: var(--accent);
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            z-index: 3;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
         /* Footer */
         footer {
-            background: var(--dark);
+            background: linear-gradient(135deg, var(--dark-red) 0%, var(--primary-red) 100%);
             padding: 3rem 0 2rem;
             text-align: center;
             position: relative;
@@ -494,10 +450,9 @@
             gap: 10px;
         }
         
-        .footer-logo .logo-icon {
-            width: 30px;
-            height: 30px;
-            transform: rotate(90deg);
+        .footer-logo i {
+            color: var(--primary-yellow);
+            font-size: 1.8rem;
         }
         
         .footer-logo h2 {
@@ -507,111 +462,40 @@
         
         .copyright {
             padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
             width: 100%;
         }
         
-        /* Floating Discord Button */
-        .discord-btn-floating {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        .discord-btn-floating:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(108, 99, 255, 0.5);
-        }
-        
-        /* Кнопка отключения снежинок */
-        .snow-toggle-btn {
-            position: fixed;
-            bottom: 90px; /* Над Discord кнопкой */
-            right: 30px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, var(--secondary) 0%, #ff4757 100%);
-            color: white;
-            padding: 0.8rem 1.2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(255, 101, 132, 0.4);
-            animation: float 3s ease-in-out infinite;
-            cursor: pointer;
-            border: none;
-        }
-        
-        .snow-toggle-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(255, 101, 132, 0.5);
-        }
-        
-        .snow-toggle-btn.snow-disabled {
-            background: linear-gradient(135deg, #2ed573 0%, #1dd1a1 100%);
-            box-shadow: 0 8px 25px rgba(46, 213, 115, 0.4);
-        }
-        
-        .snow-toggle-btn.snow-disabled:hover {
-            box-shadow: 0 12px 30px rgba(46, 213, 115, 0.5);
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
-            100% {
-                transform: translateY(0px);
-            }
-        }
-        
-        /* Снежинки */
-        .snowflakes {
+        /* Particle Background */
+        .particles {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: -1;
             pointer-events: none;
-            z-index: 1;
         }
         
-        .snowflake {
+        .particle {
             position: absolute;
-            top: -10px;
-            color: white;
-            font-size: 1em;
-            opacity: 0.8;
-            animation: fall linear forwards;
-            pointer-events: none;
+            border-radius: 50%;
+            background: var(--primary-yellow);
+            opacity: 0.3;
+            animation: float 15s infinite linear;
         }
         
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            100% {
+                transform: translateY(0) translateX(0);
             }
         }
         
@@ -629,11 +513,11 @@
             }
             
             .hero {
-                padding-top: 140px;
+                padding-top: 140px; /* Больший отступ для мобильных */
             }
             
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             .hero p {
@@ -653,29 +537,22 @@
                 grid-template-columns: 1fr;
             }
             
+            .banner-btn {
+                padding: 0.7rem 1.3rem;
+                font-size: 0.8rem;
+            }
+            
             .discord-btn-floating {
                 bottom: 20px;
                 right: 20px;
                 padding: 0.8rem 1.2rem;
                 font-size: 0.9rem;
             }
-            
-            .snow-toggle-btn {
-                bottom: 70px;
-                right: 20px;
-                padding: 0.6rem 1rem;
-                font-size: 0.8rem;
-            }
-            
-            nav a {
-                padding: 0.7rem 1rem;
-                font-size: 0.9rem;
-            }
         }
 
         @media (max-width: 480px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .hero p {
@@ -691,16 +568,15 @@
             }
             
             .logo-icon {
-                width: 35px;
-                height: 35px;
+                font-size: 1.8rem;
             }
             
             nav a {
+                padding: 0.4rem 0.8rem;
                 font-size: 0.9rem;
-                padding: 0.6rem 0.8rem;
             }
             
-            .discord-btn {
+            .discord-btn-header {
                 padding: 0.5rem 1rem;
                 font-size: 0.8rem;
             }
@@ -710,13 +586,6 @@
                 right: 15px;
                 padding: 0.7rem 1rem;
                 font-size: 0.8rem;
-            }
-            
-            .snow-toggle-btn {
-                bottom: 60px;
-                right: 15px;
-                padding: 0.5rem 0.8rem;
-                font-size: 0.7rem;
             }
         }
 
@@ -735,7 +604,7 @@
             
             nav a {
                 font-size: 0.8rem;
-                padding: 0.5rem 0.7rem;
+                padding: 0.3rem 0.6rem;
             }
             
             .discord-btn-floating span {
@@ -746,27 +615,12 @@
                 padding: 0.8rem;
                 border-radius: 50%;
             }
-            
-            .snow-toggle-btn span {
-                display: none;
-            }
-            
-            .snow-toggle-btn {
-                padding: 0.8rem;
-                border-radius: 50%;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Снежинки -->
-    <div class="snowflakes" id="snowflakes"></div>
-    
-    <!-- Кнопка отключения снежинок -->
-    <button class="snow-toggle-btn" id="snowToggleBtn">
-        <i class="fas fa-snowflake"></i>
-        <span>Выкл снежинки</span>
-    </button>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
     
     <!-- Floating Discord Button -->
     <a href="https://discord.gg/HNZqagrNCd" class="discord-btn-floating" target="_blank">
@@ -779,9 +633,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <div class="logo-icon">
-                        <img src="img/snej.png" alt="Snowflake">
-                    </div>
+                    <i class="fas fa-film logo-icon"></i>
                     <h1>GoreSeries</h1>
                 </div>
                 <nav>
@@ -790,7 +642,7 @@
                         <li><a href="#projects">Проекты</a></li>
                         <li><a href="about.html">О нас</a></li>
                         <li>
-                            <a href="https://discord.gg/HNZqagrNCd" class="discord-btn" target="_blank">
+                            <a href="https://discord.gg/HNZqagrNCd" class="discord-btn-header" target="_blank">
                                 <i class="fab fa-discord"></i>
                                 Discord
                             </a>
@@ -806,14 +658,14 @@
         <div class="hero-bg"></div>
         <div class="container">
             <div class="hero-content">
-                <h1>Создаём лучшие <span class="gradient-text">ИИ-сериалы</span> по игре GoreBox и не только.</h1>
+                <h1>Создаём лучшие <span>ИИ-сериалы</span> по игре GoreBox и не только.</h1>
                 <p>GoreSeries Продакшн - команда, которая делает качественные ИИ-сериалы с уникальным визуальным стилем и захватывающими сюжетами.</p>
                 <div class="btn-group">
                     <a href="#projects" class="btn">
                         <i class="fas fa-play"></i>
                         Смотреть проекты
                     </a>
-                    <a href="about.html" class="btn btn-outline">
+                    <a href="/about" class="btn btn-outline">
                         <i class="fas fa-info-circle"></i>
                         О нас
                     </a>
@@ -832,12 +684,10 @@
                 <!-- Проект 1 -->
                 <div class="project-card" onclick="window.location.href='project1.html'">
                     <div class="project-img" style="background-image: url('img/ataka_chit.jpg')">
-                        <div class="project-overlay">
-                            <a href="project1.html" class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Смотреть сериал
-                            </a>
-                        </div>
+                        <button class="banner-btn" onclick="event.stopPropagation(); window.location.href='project1.html'">
+                            <i class="fas fa-play"></i>
+                            Смотреть сериал
+                        </button>
                     </div>
                     <div class="project-info">
                         <h3>Атака читеров</h3>
@@ -852,12 +702,10 @@
                 <!-- Проект 2 -->
                 <div class="project-card" onclick="window.location.href='project2.html'">
                     <div class="project-img" style="background-image: url('img/kondicii.jpg')">
-                        <div class="project-overlay">
-                            <a href="project2.html" class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Смотреть сериал
-                            </a>
-                        </div>
+                        <button class="banner-btn" onclick="event.stopPropagation(); window.location.href='project2.html'">
+                            <i class="fas fa-play"></i>
+                            Смотреть сериал
+                        </button>
                     </div>
                     <div class="project-info">
                         <h3>Кондиции...</h3>
@@ -869,35 +717,31 @@
                     </div>
                 </div>
 
-                <!-- Проект 3 - Проект 6.7 -->
+                <!-- Проект 3 -->
                 <div class="project-card" onclick="window.location.href='project3.html'">
                     <div class="project-img" style="background-image: url('img/litvin.jpg')">
-                        <div class="project-overlay">
-                            <a href="project3.html" class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Смотреть сериал
-                            </a>
-                        </div>
+                        <button class="banner-btn" onclick="event.stopPropagation(); window.location.href='project3.html'">
+                            <i class="fas fa-play"></i>
+                            Смотреть сериал
+                        </button>
                     </div>
                     <div class="project-info">
                         <h3>Литвин играет в GoreBox</h3>
                         <p>Литвин попадает в страшную засаду от Меллстроя, и ему предстоит из нее выбраться.</p>
                         <div class="project-meta">
-                        <span><i class="fas fa-user"></i> By nngb</span>
-                        <span><i class="fas fa-calendar"></i> 2025</span>
+                            <span><i class="fas fa-user"></i> By nngb</span>
+                            <span><i class="fas fa-calendar"></i> 2025</span>
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Проект 4 - Проект 6.7 -->
                 <div class="project-card" onclick="window.location.href='project4.html'">
                     <div class="project-img" style="background-image: url('img/67.jpg')">
-                        <div class="project-overlay">
-                            <a href="project4.html" class="play-btn">
-                                <i class="fas fa-play"></i>
-                                Смотреть сериал
-                            </a>
-                        </div>
+                        <button class="banner-btn" onclick="event.stopPropagation(); window.location.href='project4.html'">
+                            <i class="fas fa-play"></i>
+                            Смотреть сериал
+                        </button>
                     </div>
                     <div class="project-info">
                         <h3>Проект 6.7</h3>
@@ -917,9 +761,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <div class="logo-icon">
-                        <img src="img/snej.png" alt="Snowflake">
-                    </div>
+                    <i class="fas fa-film"></i>
                     <h2>GoreSeries Продакшн</h2>
                 </div>
                 <div class="copyright">
@@ -930,122 +772,31 @@
     </footer>
 
     <script>
-        // Состояние снежинок
-        let snowEnabled = true;
-        let snowInterval = null;
-        
-        // Проверяем сохраненное состояние в localStorage
-        function loadSnowState() {
-            const savedState = localStorage.getItem('snowEnabled');
-            if (savedState !== null) {
-                snowEnabled = savedState === 'true';
-                updateSnowToggleButton();
-                if (!snowEnabled) {
-                    stopSnowflakes();
-                }
-            }
-        }
-        
-        // Сохраняем состояние в localStorage
-        function saveSnowState() {
-            localStorage.setItem('snowEnabled', snowEnabled.toString());
-        }
-        
-        // Создание снежинок
-        function createSnowflakes() {
-            if (!snowEnabled) return;
-            
-            const snowflakesContainer = document.getElementById('snowflakes');
-            const snowflakeCount = 50;
-            
-            for (let i = 0; i < snowflakeCount; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                snowflake.innerHTML = '❄';
-                
-                // Случайные параметры для снежинок
-                const size = Math.random() * 1.5 + 0.5;
-                const left = Math.random() * 100;
-                const animationDuration = Math.random() * 10 + 5;
-                const animationDelay = Math.random() * 5;
-                
-                snowflake.style.left = `${left}vw`;
-                snowflake.style.fontSize = `${size}em`;
-                snowflake.style.animationDuration = `${animationDuration}s`;
-                snowflake.style.animationDelay = `${animationDelay}s`;
-                
-                snowflakesContainer.appendChild(snowflake);
-                
-                // Удаляем снежинку после завершения анимации
-                setTimeout(() => {
-                    snowflake.remove();
-                }, (animationDuration + animationDelay) * 1000);
-            }
-        }
-        
-        // Запуск создания снежинок
-        function startSnowflakes() {
-            createSnowflakes();
-            snowInterval = setInterval(createSnowflakes, 2000);
-        }
-        
-        // Остановка создания снежинок
-        function stopSnowflakes() {
-            if (snowInterval) {
-                clearInterval(snowInterval);
-                snowInterval = null;
-            }
-            // Удаляем все существующие снежинки
-            const snowflakesContainer = document.getElementById('snowflakes');
-            snowflakesContainer.innerHTML = '';
-        }
-        
-        // Переключение состояния снежинок
-        function toggleSnowflakes() {
-            snowEnabled = !snowEnabled;
-            
-            if (snowEnabled) {
-                startSnowflakes();
-            } else {
-                stopSnowflakes();
-            }
-            
-            updateSnowToggleButton();
-            saveSnowState();
-        }
-        
-        // Обновление внешнего вида кнопки
-        function updateSnowToggleButton() {
-            const toggleBtn = document.getElementById('snowToggleBtn');
-            const icon = toggleBtn.querySelector('i');
-            const text = toggleBtn.querySelector('span');
-            
-            if (snowEnabled) {
-                toggleBtn.classList.remove('snow-disabled');
-                icon.className = 'fas fa-snowflake';
-                text.textContent = 'Выкл снежинки';
-            } else {
-                toggleBtn.classList.add('snow-disabled');
-                icon.className = 'fas fa-snowflake';
-                text.textContent = 'Вкл снежинки';
-            }
-        }
-        
-        // Инициализация при загрузке страницы
+        // Создание частиц для фона
         document.addEventListener('DOMContentLoaded', function() {
-            // Загружаем сохраненное состояние
-            loadSnowState();
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
             
-            // Запускаем снежинки если включены
-            if (snowEnabled) {
-                startSnowflakes();
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                
+                const colors = ['var(--primary-red)', 'var(--primary-yellow)', 'var(--accent-red)', 'var(--accent-yellow)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particlesContainer.appendChild(particle);
             }
             
-            // Назначаем обработчик на кнопку
-            const toggleBtn = document.getElementById('snowToggleBtn');
-            toggleBtn.addEventListener('click', toggleSnowflakes);
-            
-            // Плавная прокрутка
+            // Плавная прокрутка без затемнения
             document.querySelectorAll('nav a, .btn[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     if (this.getAttribute('href').startsWith('#')) {
@@ -1065,9 +816,12 @@
             // Обработчики для карточек проектов
             document.querySelectorAll('.project-card').forEach(card => {
                 card.addEventListener('click', function(e) {
-                    if (!e.target.closest('.play-btn')) {
-                        const link = this.getAttribute('onclick').match(/'([^']+)'/)[1];
-                        window.location.href = link;
+                    if (!e.target.closest('.btn')) {
+                        const link = this.getAttribute('onclick');
+                        if (link) {
+                            const url = link.match(/'([^']+)'/)[1];
+                            window.location.href = url;
+                        }
                     }
                 });
             });
