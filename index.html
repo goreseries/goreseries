@@ -997,7 +997,7 @@
         async function loadNewsFromGitHub() {
             const newsList = document.getElementById('news-list');
             
-            const NEWS_URL = 'https://raw.githubusercontent.com/goreseries/goreseries/refs/heads/main/news.json';
+            const NEWS_URL = 'https://raw.githubusercontent.com/goreseries/goreseries-news/refs/heads/main/news.json';
             
             try {
                 const response = await fetch(NEWS_URL + '?t=' + Date.now());
