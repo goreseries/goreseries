@@ -202,7 +202,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            padding-top: 1px; /* Увеличил отступ сверху */
+            padding-top: 100px;
         }
         
         .hero-bg {
@@ -219,14 +219,155 @@
         }
         
         .hero-content {
-            max-width: 800px;
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
             position: relative;
             z-index: 2;
-            margin-top: 2rem; /* Добавил дополнительный отступ */
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .news-sidebar {
+            width: 350px;
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .news-sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red), var(--primary-yellow));
+        }
+        
+        .news-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .news-header i {
+            color: var(--primary-yellow);
+            font-size: 1.5rem;
+        }
+        
+        .news-header h3 {
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--accent-yellow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .news-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .news-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--primary-yellow);
+            transition: all 0.3s ease;
+        }
+        
+        .news-item:hover {
+            background: rgba(255, 215, 0, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .news-date {
+            display: inline-block;
+            background: rgba(200, 16, 46, 0.3);
+            color: #ff8e8e;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+        
+        .news-title {
+            font-weight: 600;
+            color: var(--primary-yellow);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .news-content {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .news-content br {
+            display: block;
+            margin: 5px 0;
+        }
+        
+        .loading-news {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .loading-news i {
+            color: var(--primary-yellow);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .error-news {
+            background: rgba(200, 16, 46, 0.1);
+            border: 1px solid var(--primary-red);
+            border-radius: 10px;
+            padding: 20px;
+            color: #ff8e8e;
+            text-align: center;
+        }
+        
+        .no-news {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+        }
+        
+        /* Стилизация скроллбара новостей */
+        .news-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .news-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+        
+        .news-list::-webkit-scrollbar-thumb {
+            background: var(--primary-yellow);
+            border-radius: 3px;
         }
         
         .hero h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
             line-height: 1.1;
             background: linear-gradient(135deg, #ffffff 0%, var(--primary-yellow) 100%);
@@ -500,6 +641,22 @@
         }
         
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .news-sidebar {
+                width: 100%;
+                max-width: 500px;
+                margin-top: 40px;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -513,15 +670,19 @@
             }
             
             .hero {
-                padding-top: 140px; /* Больший отступ для мобильных */
+                padding-top: 160px;
             }
             
             .hero h1 {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
             }
             
             .hero p {
                 font-size: 1.1rem;
+            }
+            
+            .news-sidebar {
+                padding: 20px;
             }
             
             .btn-group {
@@ -552,7 +713,7 @@
 
         @media (max-width: 480px) {
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
             
             .hero p {
@@ -586,6 +747,10 @@
                 right: 15px;
                 padding: 0.7rem 1rem;
                 font-size: 0.8rem;
+            }
+            
+            .news-header h3 {
+                font-size: 1.2rem;
             }
         }
 
@@ -658,17 +823,33 @@
         <div class="hero-bg"></div>
         <div class="container">
             <div class="hero-content">
-                <h1>Создаём лучшие <span>ИИ-сериалы</span> по игре GoreBox и не только.</h1>
-                <p>GoreSeries Продакшн - команда, которая делает качественные ИИ-сериалы с уникальным визуальным стилем и захватывающими сюжетами.</p>
-                <div class="btn-group">
-                    <a href="#projects" class="btn">
-                        <i class="fas fa-play"></i>
-                        Смотреть проекты
-                    </a>
-                    <a href="about.html" class="btn btn-outline">
-                        <i class="fas fa-info-circle"></i>
-                        О нас
-                    </a>
+                <div class="hero-text">
+                    <h1>Создаём лучшие <span>ИИ-сериалы</span> по игре GoreBox и не только.</h1>
+                    <p>GoreSeries Продакшн - команда, которая делает качественные ИИ-сериалы с уникальным визуальным стилем и захватывающими сюжетами.</p>
+                    <div class="btn-group">
+                        <a href="#projects" class="btn">
+                            <i class="fas fa-play"></i>
+                            Смотреть проекты
+                        </a>
+                        <a href="about.html" class="btn btn-outline">
+                            <i class="fas fa-info-circle"></i>
+                            О нас
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Блок новостей -->
+                <div class="news-sidebar">
+                    <div class="news-header">
+                        <i class="fas fa-newspaper"></i>
+                        <h3>Последние новости</h3>
+                    </div>
+                    <div class="news-list" id="news-list">
+                        <div class="loading-news">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Загрузка новостей...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -717,24 +898,6 @@
                     </div>
                 </div>
 
-                <!-- Проект 3 --
-                <div class="project-card" onclick="window.location.href='project3.html'">
-                    <div class="project-img" style="background-image: url('img/litvin.jpg')">
-                        <button class="banner-btn" onclick="event.stopPropagation(); window.location.href='project3.html'">
-                            <i class="fas fa-play"></i>
-                            Смотреть сериал
-                        </button>
-                    </div>
-                    <div class="project-info">
-                        <h3>Литвин играет в GoreBox</h3>
-                        <p>Литвин попадает в страшную засаду от Меллстроя, и ему предстоит из нее выбраться.</p>
-                        <div class="project-meta">
-                            <span><i class="fas fa-user"></i> By nngb</span>
-                            <span><i class="fas fa-calendar"></i> 2025</span>
-                        </div>
-                    </div>
-                </div>
-                
                 <!-- Проект 4 - Проект 6.7 -->
                 <div class="project-card" onclick="window.location.href='project4.html'">
                     <div class="project-img" style="background-image: url('img/67.jpg')">
@@ -796,7 +959,7 @@
                 particlesContainer.appendChild(particle);
             }
             
-            // Плавная прокрутка без затемнения
+            // Плавная прокрутка
             document.querySelectorAll('nav a, .btn[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     if (this.getAttribute('href').startsWith('#')) {
@@ -825,7 +988,87 @@
                     }
                 });
             });
+            
+            // Загрузка новостей из GitHub
+            loadNewsFromGitHub();
         });
+        
+        // Функция загрузки новостей
+        async function loadNewsFromGitHub() {
+            const newsList = document.getElementById('news-list');
+            
+            const NEWS_URL = 'https://raw.githubusercontent.com/goreseries/goreseries/refs/heads/main/news.json';
+            
+            try {
+                const response = await fetch(NEWS_URL + '?t=' + Date.now());
+                if (!response.ok) {
+                    throw new Error(`Ошибка HTTP: ${response.status}`);
+                }
+                
+                const news = await response.json();
+                
+                if (!news || news.length === 0) {
+                    newsList.innerHTML = '<div class="no-news">Новостей пока нет</div>';
+                    return;
+                }
+                
+                // Сортируем новости по дате (новые сверху)
+                news.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                // Показываем только последние 5 новостей
+                const latestNews = news.slice(0, 5);
+                
+                let newsHTML = '';
+                latestNews.forEach(item => {
+                    const formattedDate = formatDate(item.date);
+                    const formattedContent = item.content.replace(/\n/g, '<br>');
+                    
+                    newsHTML += `
+                        <div class="news-item">
+                            <div class="news-date">${formattedDate}</div>
+                            <div class="news-title">${escapeHtml(item.title)}</div>
+                            <div class="news-content">${formattedContent}</div>
+                        </div>
+                    `;
+                });
+                
+                newsList.innerHTML = newsHTML;
+                
+            } catch (error) {
+                console.error('Ошибка загрузки новостей:', error);
+                newsList.innerHTML = `
+                    <div class="error-news">
+                        <p>Новости временно недоступны</p>
+                        <small>Проверьте подключение к интернету</small>
+                    </div>
+                `;
+            }
+        }
+        
+        // Форматирование даты
+        function formatDate(dateString) {
+            try {
+                const date = new Date(dateString);
+                const options = { 
+                    day: 'numeric', 
+                    month: 'long',
+                    year: 'numeric'
+                };
+                return date.toLocaleDateString('ru-RU', options);
+            } catch {
+                return dateString;
+            }
+        }
+        
+        // Защита от XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Автоматическое обновление новостей каждые 10 минут
+        setInterval(loadNewsFromGitHub, 10 * 60 * 1000);
     </script>
 </body>
 </html>
