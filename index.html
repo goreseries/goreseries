@@ -318,6 +318,22 @@
             line-height: 1.5;
         }
         
+        /* Стили для ссылок в новостях */
+        .news-content a {
+            color: var(--primary-yellow);
+            text-decoration: none;
+            border-bottom: 1px solid var(--primary-red);
+            transition: all 0.3s ease;
+            padding: 0 2px;
+            font-weight: 600;
+        }
+        
+        .news-content a:hover {
+            color: var(--accent-yellow);
+            border-bottom-color: var(--accent-yellow);
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+        }
+        
         .news-content br {
             display: block;
             margin: 5px 0;
@@ -993,7 +1009,79 @@
             loadNewsFromGitHub();
         });
         
-        // Функция загрузки новостей
+        // Защита от XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Форматирование даты
+        function formatDate(dateString) {
+            try {
+                const date = new Date(dateString);
+                const options = { 
+                    day: 'numeric', 
+                    month: 'long',
+                    year: 'numeric'
+                };
+                return date.toLocaleDateString('ru-RU', options);
+            } catch {
+                return dateString;
+            }
+        }
+        
+        // Преобразование текста с автоматическими ссылками
+        function formatContentWithLinks(text) {
+            if (!text) return '';
+            
+            let formatted = escapeHtml(text);
+            
+            // Автоматическое преобразование URL в ссылки
+            // Регулярное выражение для поиска URL (http://, https:// и www.)
+            const urlRegex = /(https?:\/\/[^\s<]+[^\s<\.)])|(www\.[^\s<]+[^\s<\.)])/g;
+            
+            formatted = formatted.replace(urlRegex, function(url) {
+                let cleanUrl = url;
+                
+                // Убираем возможные знаки препинания в конце
+                const punctuation = ['.', ',', '!', '?', ')', ']', ';', ':'];
+                while (punctuation.includes(cleanUrl.slice(-1))) {
+                    cleanUrl = cleanUrl.slice(0, -1);
+                }
+                
+                // Добавляем https:// если начинается с www.
+                if (cleanUrl.startsWith('www.')) {
+                    cleanUrl = 'https://' + cleanUrl;
+                }
+                
+                // Проверяем, что это действительно URL
+                if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
+                    return url; // Не URL, возвращаем как есть
+                }
+                
+                // Создаем отображаемое имя
+                let displayText = cleanUrl
+                    .replace(/^https?:\/\//, '')
+                    .replace(/^www\./, '')
+                    .replace(/\/$/, '');
+                
+                // Обрезаем если слишком длинный
+                if (displayText.length > 40) {
+                    displayText = displayText.substring(0, 37) + '...';
+                }
+                
+                // Возвращаем ссылку
+                return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer">${displayText}</a>`;
+            });
+            
+            // Заменяем переносы строк на <br>
+            formatted = formatted.replace(/\n/g, '<br>');
+            
+            return formatted;
+        }
+        
+        // Загрузка новостей из GitHub
         async function loadNewsFromGitHub() {
             const newsList = document.getElementById('news-list');
             
@@ -1021,7 +1109,7 @@
                 let newsHTML = '';
                 latestNews.forEach(item => {
                     const formattedDate = formatDate(item.date);
-                    const formattedContent = item.content.replace(/\n/g, '<br>');
+                    const formattedContent = formatContentWithLinks(item.content);
                     
                     newsHTML += `
                         <div class="news-item">
@@ -1043,28 +1131,6 @@
                     </div>
                 `;
             }
-        }
-        
-        // Форматирование даты
-        function formatDate(dateString) {
-            try {
-                const date = new Date(dateString);
-                const options = { 
-                    day: 'numeric', 
-                    month: 'long',
-                    year: 'numeric'
-                };
-                return date.toLocaleDateString('ru-RU', options);
-            } catch {
-                return dateString;
-            }
-        }
-        
-        // Защита от XSS
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
         }
         
         // Автоматическое обновление новостей каждые 10 минут
