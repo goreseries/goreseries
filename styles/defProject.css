@@ -1,0 +1,889 @@
+/* ========== ПЕРЕМЕННЫЕ ========== */
+:root {
+    --primary-red: #e63946;
+    --dark-red: #9d0208;
+    --deep-red: #6a040f;
+    --primary-orange: #f77f00;
+    --dark-orange: #d62828;
+    --primary-yellow: #fcbf49;
+    --light-yellow: #ffd166;
+    --accent-red: #ff4d6d;
+    --accent-yellow: #ffbe0b;
+    
+    --bg-dark: #0d0d0d;
+    --bg-darker: #050505;
+    --bg-card: #1a1a1a;
+    --bg-card-hover: #252525;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --text-muted: #666666;
+    
+    --gradient-fire: linear-gradient(135deg, var(--dark-red), var(--primary-orange), var(--primary-yellow));
+    --gradient-sunset: linear-gradient(45deg, var(--deep-red), var(--primary-red), var(--primary-orange));
+    --gradient-warm: linear-gradient(180deg, var(--primary-orange), var(--primary-yellow));
+    
+    --shadow-glow: 0 0 30px rgba(230, 57, 70, 0.3);
+    --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.5);
+    
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    --border-radius: 12px;
+    --border-radius-lg: 20px;
+}
+
+/* ========== КАСТОМНЫЙ СКРОЛЛБАР ========== */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-darker);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gradient-sunset);
+    border-radius: 6px;
+    border: 2px solid var(--bg-darker);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gradient-fire);
+    box-shadow: 0 0 10px rgba(230, 57, 70, 0.5);
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--bg-darker);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-red) var(--bg-darker);
+}
+
+/* ========== СБРОС И БАЗОВЫЕ СТИЛИ ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse at 20% 20%, rgba(230, 57, 70, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(247, 127, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(252, 191, 73, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-normal);
+}
+
+/* ========== ЧАСТИЦЫ ========== */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: floatParticle 15s infinite ease-in-out;
+    filter: blur(1px);
+}
+
+@keyframes floatParticle {
+    0%, 100% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0.6;
+    }
+    25% {
+        transform: translateY(-100px) translateX(50px) scale(1.2);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(-50px) translateX(-30px) scale(0.8);
+        opacity: 0.4;
+    }
+    75% {
+        transform: translateY(-150px) translateX(20px) scale(1.1);
+        opacity: 0.7;
+    }
+}
+
+/* ========== ХЕДЕР ========== */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(13, 13, 13, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(230, 57, 70, 0.2);
+    padding: 15px 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    font-size: 2rem;
+    background: var(--gradient-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 10px rgba(230, 57, 70, 0.5));
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--gradient-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+    align-items: center;
+}
+
+nav ul li a {
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    color: var(--text-secondary);
+    position: relative;
+    overflow: hidden;
+}
+
+nav ul li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-fire);
+    transition: var(--transition-normal);
+    transform: translateX(-50%);
+}
+
+nav ul li a:hover {
+    color: var(--text-primary);
+}
+
+nav ul li a:hover::before,
+nav ul li a.active::before {
+    width: 80%;
+}
+
+nav ul li a.active {
+    color: var(--primary-yellow);
+}
+
+.discord-btn-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #5865F2, #7289da);
+    padding: 10px 20px !important;
+    border-radius: var(--border-radius) !important;
+    color: white !important;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+}
+
+.discord-btn-header:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(88, 101, 242, 0.5);
+}
+
+.discord-btn-header::before {
+    display: none !important;
+}
+
+/* ========== ПЛАВАЮЩАЯ КНОПКА DISCORD ========== */
+.discord-btn-floating {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #5865F2, #7289da);
+    padding: 15px 25px;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 5px 30px rgba(88, 101, 242, 0.4);
+    animation: pulse 2s infinite;
+}
+
+.discord-btn-floating:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 40px rgba(88, 101, 242, 0.6);
+}
+
+.discord-btn-floating i {
+    font-size: 1.4rem;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 5px 30px rgba(88, 101, 242, 0.4);
+    }
+    50% {
+        box-shadow: 0 5px 40px rgba(88, 101, 242, 0.7);
+    }
+}
+
+/* ========== PROJECT HERO СЕКЦИЯ ========== */
+.project-hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    padding-top: 120px;
+    padding-bottom: 60px;
+    position: relative;
+}
+
+.project-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(230, 57, 70, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(247, 127, 0, 0.15) 0%, transparent 50%);
+    z-index: -1;
+}
+
+.project-hero-content {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.project-poster {
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card), var(--shadow-glow);
+    border: 2px solid rgba(230, 57, 70, 0.3);
+}
+
+.project-poster img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: var(--transition-slow);
+}
+
+.project-poster:hover img {
+    transform: scale(1.05);
+}
+
+.project-info h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--gradient-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+}
+
+.project-info .project-meta {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.project-info .project-meta span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.project-info .project-meta i {
+    color: var(--primary-orange);
+}
+
+.project-description {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 35px;
+}
+
+/* ========== КНОПКИ ========== */
+.btn-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    background: var(--gradient-sunset);
+    color: white;
+    box-shadow: 0 5px 25px rgba(230, 57, 70, 0.3);
+    transition: var(--transition-normal);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: var(--transition-slow);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 35px rgba(230, 57, 70, 0.5);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary-red);
+    box-shadow: none;
+}
+
+.btn-outline:hover {
+    background: var(--gradient-sunset);
+    border-color: transparent;
+    box-shadow: 0 8px 35px rgba(230, 57, 70, 0.5);
+}
+
+/* ========== СЕКЦИИ ========== */
+.section {
+    padding: 100px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--gradient-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--gradient-fire);
+    border-radius: 2px;
+}
+
+/* ========== СЕТКА СЕРИЙ ========== */
+.episodes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.episode-card {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid rgba(230, 57, 70, 0.1);
+    transition: var(--transition-normal);
+    cursor: pointer;
+    position: relative;
+}
+
+.episode-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(230, 57, 70, 0.3);
+    box-shadow: var(--shadow-card), var(--shadow-glow);
+}
+
+.episode-img {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.episode-img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.7) 100%);
+}
+
+.episode-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition-normal);
+}
+
+.episode-card:hover .episode-overlay {
+    opacity: 1;
+}
+
+.episode-overlay .btn,
+.episode-overlay .watch-btn {
+    padding: 12px 25px;
+}
+
+.episode-info {
+    padding: 20px;
+}
+
+.episode-info h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    transition: var(--transition-normal);
+}
+
+.episode-card:hover .episode-info h3 {
+    color: var(--primary-yellow);
+}
+
+.episode-info p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.episode-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.episode-meta span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ========== СТАТУС БЕЙДЖИ ========== */
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.available {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.status-badge.in-progress {
+    background: rgba(255, 152, 0, 0.2);
+    color: #ff9800;
+    border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+/* Без класса = доступно (зелёный) */
+.episode-meta .status-badge:not(.in-progress):not(.available) {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+/* ========== МОДАЛЬНОЕ ОКНО ВИДЕО (ФИКС РАСТЯГИВАНИЯ) ========== */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-normal);
+}
+
+.video-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.video-container {
+    width: 90%;
+    max-width: 900px;
+    background: var(--bg-card);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    border: 1px solid rgba(230, 57, 70, 0.3);
+    box-shadow: 0 0 60px rgba(230, 57, 70, 0.3);
+    transform: scale(0.9);
+    transition: var(--transition-normal);
+}
+
+.video-modal.active .video-container {
+    transform: scale(1);
+}
+
+.video-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: var(--bg-darker);
+    border-bottom: 1px solid rgba(230, 57, 70, 0.2);
+}
+
+.video-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.close-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(230, 57, 70, 0.2);
+    border: none;
+    color: var(--primary-red);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: var(--primary-red);
+    color: white;
+    transform: rotate(90deg);
+}
+
+.video-content {
+    position: relative;
+    width: 100%;
+    /* Фиксированное соотношение сторон 16:9 */
+    padding-top: 56.25%;
+    background: #000;
+}
+
+.video-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: block;
+}
+
+/* Скрываем кнопку скачивания */
+.video-player::-webkit-media-controls-download-button {
+    display: none !important;
+}
+
+.video-player::-webkit-media-controls-overflow-menu {
+    display: none !important;
+}
+
+/* ========== ФУТЕР ========== */
+footer {
+    background: var(--bg-darker);
+    padding: 50px 0;
+    border-top: 1px solid rgba(230, 57, 70, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gradient-fire);
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-logo i {
+    font-size: 2rem;
+    background: var(--gradient-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.footer-logo h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--gradient-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.copyright p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
+@media (max-width: 1200px) {
+    .project-hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .project-poster {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+    
+    .project-info .project-meta {
+        justify-content: center;
+    }
+    
+    .project-info .btn-group {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .project-hero {
+        padding-top: 160px;
+    }
+    
+    .project-info h1 {
+        font-size: 2rem;
+    }
+    
+    .project-description {
+        font-size: 1rem;
+    }
+    
+    .section-title h2 {
+        font-size: 2rem;
+    }
+    
+    .episodes-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .discord-btn-floating {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 20px;
+    }
+    
+    .discord-btn-floating span {
+        display: none;
+    }
+    
+    .video-container {
+        width: 95%;
+    }
+    
+    .video-header {
+        padding: 15px 20px;
+    }
+    
+    .video-title {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-info h1 {
+        font-size: 1.8rem;
+    }
+    
+    .project-poster {
+        max-width: 280px;
+    }
+    
+    .episode-img {
+        height: 160px;
+    }
+    
+    .section {
+        padding: 60px 0;
+    }
+    
+    .project-info .project-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* ========== АНИМАЦИИ ========== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.project-hero-content,
+.episode-card {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.episode-card:nth-child(1) { animation-delay: 0.05s; }
+.episode-card:nth-child(2) { animation-delay: 0.1s; }
+.episode-card:nth-child(3) { animation-delay: 0.15s; }
+.episode-card:nth-child(4) { animation-delay: 0.2s; }
+.episode-card:nth-child(5) { animation-delay: 0.25s; }
+.episode-card:nth-child(6) { animation-delay: 0.3s; }
+.episode-card:nth-child(7) { animation-delay: 0.35s; }
+.episode-card:nth-child(8) { animation-delay: 0.4s; }
+.episode-card:nth-child(9) { animation-delay: 0.45s; }
+.episode-card:nth-child(10) { animation-delay: 0.5s; }
+.episode-card:nth-child(11) { animation-delay: 0.55s; }
+.episode-card:nth-child(12) { animation-delay: 0.6s; }
+.episode-card:nth-child(13) { animation-delay: 0.65s; }
