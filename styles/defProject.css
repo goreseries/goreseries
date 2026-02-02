@@ -774,16 +774,28 @@ footer::before {
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
     }
     
     nav ul {
         flex-wrap: wrap;
         justify-content: center;
+        gap: 8px;
     }
     
+    nav ul li a {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .discord-btn-header {
+        padding: 8px 15px !important;
+        font-size: 0.85rem;
+    }
+    
+    /* ИСПРАВЛЕНИЕ: увеличиваем отступ сверху для project-hero */
     .project-hero {
-        padding-top: 160px;
+        padding-top: 180px;
     }
     
     .project-info h1 {
@@ -835,6 +847,29 @@ footer::before {
 }
 
 @media (max-width: 480px) {
+    /* ИСПРАВЛЕНИЕ: еще больше отступ для маленьких экранов */
+    .project-hero {
+        padding-top: 200px;
+    }
+    
+    .logo h1 {
+        font-size: 1.4rem;
+    }
+    
+    .logo-icon {
+        font-size: 1.6rem;
+    }
+    
+    nav ul li a {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .discord-btn-header {
+        padding: 6px 12px !important;
+        font-size: 0.8rem;
+    }
+    
     .project-info h1 {
         font-size: 1.8rem;
     }
@@ -854,6 +889,27 @@ footer::before {
     .project-info .project-meta {
         flex-direction: column;
         gap: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    /* ИСПРАВЛЕНИЕ: максимальный отступ для самых маленьких экранов */
+    .project-hero {
+        padding-top: 220px;
+    }
+    
+    nav ul {
+        gap: 5px;
+    }
+    
+    nav ul li a {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+    
+    .discord-btn-header {
+        padding: 5px 10px !important;
+        font-size: 0.75rem;
     }
 }
 
