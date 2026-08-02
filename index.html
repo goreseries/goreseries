@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <!-- Запрет масштабирования (приближения) на мобильных устройствах -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, shrink-to-fit=no">
+    <title>GoreSeries Продакшн</title>
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GoreSeries Продакшн">
+    <meta name="twitter:description" content="GoreSeries Продакшн - команда, которая делает ИИ-сериалы с понятными сюжетами">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/goreseries/goreseries/refs/heads/main/img/BannerGSP.jpg">
+
+    <meta property="og:title" content="GoreSeries Продакшн">
+    <meta property="og:description" content="GoreSeries Продакшн - команда, которая делает ИИ-сериалы с понятными сюжетами">
+    <meta property="og:image" content="https://raw.githubusercontent.com/goreseries/goreseries/refs/heads/main/img/BannerGSP.jpg">
+    <meta property="og:image:width" content="500"/>
+    <meta property="og:url" content="https://goreseries.c6t.ru/">
+    
+    <link rel="icon" type="image/png" href="img/GSP_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Floating Discord Button -->
+    <a href="https://discord.gg/YcGrg2nSQz" class="discord-btn-floating" target="_blank">
+        <i class="fab fa-discord"></i>
+        <span>Discord</span>
+    </a>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-film logo-icon"></i>
+                    <h1>GoreSeries</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home" class="active">Главная</a></li>
+                        <li><a href="#projects">Проекты</a></li>
+                        <li><a href="about.html">О нас</a></li>
+                        <li>
+                            <a href="https://discord.gg/YcGrg2nSQz" class="discord-btn-header" target="_blank">
+                                <i class="fab fa-discord"></i>
+                                Discord
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Создаём <span>ИИ-сериалы</span> по игре GoreBox и не только.</h1>
+                    <p>GoreSeries Продакшн - команда, которая делает ИИ-сериалы с понятными сюжетами.</p>
+                    <div class="btn-group">
+                        <a href="#projects" class="btn">
+                            <i class="fas fa-play"></i>
+                            Смотреть проекты
+                        </a>
+                        <a href="about.html" class="btn btn-outline">
+                            <i class="fas fa-info-circle"></i>
+                            О нас
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Блок новостей -->
+                <div class="news-sidebar">
+                    <div class="news-header">
+                        <i class="fas fa-newspaper"></i>
+                        <h3>Последние новости</h3>
+                    </div>
+                    <div class="news-list" id="news-list">
+                        <div class="loading-news">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Загрузка новостей...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши проекты</h2>
+            </div>
+            <div class="projects-grid">
+                <!-- Проект 1 -->
+                <div class="project-card" onclick="window.location.href='project1.html'">
+                    <div class="project-img" style="background-image: url('img/ataka_chit.jpg')">
+                        <button class="banner-btn" onclick="event.stopPropagation(); window.location.href='project1.html'">
+                            <i class="fas fa-play"></i>
+                            Смотреть сериал
+                        </button>
+                    </div>
+                    <div class="project-info">
+                        <h3>Атака читеров</h3>
+                        <p>Был человек Vladislav G, но после случая с Феликсом он решил перейти на тёмную сторону...</p>
+                        <div class="project-meta">
+                            <span><i class="fas fa-user"></i> By HACKER2912</span>
+                            <span><i class="fas fa-calendar"></i> 2025</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Проект 2 -->
+                <div class="project-card" onclick="window.location.href='project2.html'">
+                    <div class="project-img" style="background-image: url('img/kondicii.jpg')">
+                        <button class="banner-btn" onclick="event.stopPropagation(); window.location.href='project2.html'">
+                            <i class="fas fa-play"></i>
+                            Смотреть сериал
+                        </button>
+                    </div>
+                    <div class="project-info">
+                        <h3>Кондиции...</h3>
+                        <p>«...Самый лучший сериал 2025! Хит столетия! Кондиции! Вас в буквальном смысле затащит в глубину сюжета, в котором полно смысла и поворотов. Кто-то будет искать этот смысл, а кто-то будет просто угарать с видеоряда. Это вам решать, каким видеть данное кино...»</p>
+                        <div class="project-meta">
+                            <span><i class="fas fa-user"></i> By Rinswent</span>
+                            <span><i class="fas fa-calendar"></i> 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Проект 4 - Проект 6.7 -->
+                <div class="project-card" onclick="window.location.href='project4.html'">
+                    <div class="project-img" style="background-image: url('img/67.jpg')">
+                        <button class="banner-btn" onclick="event.stopPropagation(); window.location.href='project4.html'">
+                            <i class="fas fa-play"></i>
+                            Смотреть сериал
+                        </button>
+                    </div>
+                    <div class="project-info">
+                        <h3>Проект 6.7</h3>
+                        <p>История про то, как Альберт Эйнштейн предал Николу Теслу и украл его проект. После чего Альберт получил безграничную силу молнии и электричества. Теперь Тесла ищет способ вернуть своё изобретение и остановить безумного Эйнштейна.</p>
+                        <div class="project-meta">
+                            <span><i class="fas fa-users"></i> By GoreSeries Team</span>
+                            <span><i class="fas fa-calendar"></i> 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-film"></i>
+                    <h2>GoreSeries Продакшн</h2>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 GoreSeries Продакшн.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Создание частиц для фона
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                
+                const colors = ['var(--primary-red)', 'var(--primary-yellow)', 'var(--accent-red)', 'var(--accent-yellow)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Плавная прокрутка
+            document.querySelectorAll('nav a, .btn[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Обработчики для карточек проектов
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.btn')) {
+                        const link = this.getAttribute('onclick');
+                        if (link) {
+                            const url = link.match(/'([^']+)'/)[1];
+                            window.location.href = url;
+                        }
+                    }
+                });
+            });
+            
+            // Загрузка новостей из GitHub
+            loadNewsFromGitHub();
+            
+            // ========== БЛОКИРОВКА МАСШТАБИРОВАНИЯ ==========
+            // Дополнительно для touch-устройств: блокируем масштабирование двумя пальцами 
+            // с помощью обработчика touchmove (для надежности вместе с user-scalable=no)
+            document.body.addEventListener('touchmove', function(e) {
+                if (e.touches.length >= 2) {
+                    // предотвращаем жест масштабирования двумя пальцами
+                    e.preventDefault();
+                    return false;
+                }
+            }, { passive: false });
+            
+            // Также запрещаем масштабирование double-tap (двойное нажатие приближает на некоторых устройствах)
+            let lastTouchEnd = 0;
+            document.body.addEventListener('touchend', function(e) {
+                const now = Date.now();
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                    return false;
+                }
+                lastTouchEnd = now;
+            }, false);
+            
+            // переопределяем поведение жеста "pinch" на touch-устройствах через CSS свойство touch-action на всех интерактивных элементах
+            const allElements = document.querySelectorAll('*');
+            allElements.forEach(el => {
+                el.style.touchAction = 'pan-x pan-y'; // запрещаем pinch-zoom, но оставляем горизонтальный/вертикальный скролл
+            });
+        });
+        
+        // Защита от XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Форматирование даты
+        function formatDate(dateString) {
+            try {
+                const date = new Date(dateString);
+                const options = { 
+                    day: 'numeric', 
+                    month: 'long',
+                    year: 'numeric'
+                };
+                return date.toLocaleDateString('ru-RU', options);
+            } catch {
+                return dateString;
+            }
+        }
+        
+        // Преобразование текста с автоматическими ссылками
+        function formatContentWithLinks(text) {
+            if (!text) return '';
+            
+            let formatted = escapeHtml(text);
+            
+            // Автоматическое преобразование URL в ссылки
+            // Регулярное выражение для поиска URL (http://, https:// и www.)
+            const urlRegex = /(https?:\/\/[^\s<]+[^\s<\.)])|(www\.[^\s<]+[^\s<\.)])/g;
+            
+            formatted = formatted.replace(urlRegex, function(url) {
+                let cleanUrl = url;
+                
+                // Убираем возможные знаки препинания в конце
+                const punctuation = ['.', ',', '!', '?', ')', ']', ';', ':'];
+                while (punctuation.includes(cleanUrl.slice(-1))) {
+                    cleanUrl = cleanUrl.slice(0, -1);
+                }
+                
+                // Добавляем https:// если начинается с www.
+                if (cleanUrl.startsWith('www.')) {
+                    cleanUrl = 'https://' + cleanUrl;
+                }
+                
+                // Проверяем, что это действительно URL
+                if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
+                    return url; // Не URL, возвращаем как есть
+                }
+                
+                // Создаем отображаемое имя
+                let displayText = cleanUrl
+                    .replace(/^https?:\/\//, '')
+                    .replace(/^www\./, '')
+                    .replace(/\/$/, '');
+                
+                // Обрезаем если слишком длинный
+                if (displayText.length > 40) {
+                    displayText = displayText.substring(0, 37) + '...';
+                }
+                
+                // Возвращаем ссылку
+                return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer">${displayText}</a>`;
+            });
+            
+            // Заменяем переносы строк на <br>
+            formatted = formatted.replace(/\n/g, '<br>');
+            
+            return formatted;
+        }
+        
+        // Загрузка новостей из GitHub
+        async function loadNewsFromGitHub() {
+            const newsList = document.getElementById('news-list');
+            
+            const NEWS_URL = 'https://raw.githubusercontent.com/goreseries/goreseries-news/refs/heads/main/news.json';
+            
+            try {
+                const response = await fetch(NEWS_URL + '?t=' + Date.now());
+                if (!response.ok) {
+                    throw new Error(`Ошибка HTTP: ${response.status}`);
+                }
+                
+                const news = await response.json();
+                
+                if (!news || news.length === 0) {
+                    newsList.innerHTML = '<div class="no-news">Новостей пока нет</div>';
+                    return;
+                }
+                
+                // Сортируем новости по дате (новые сверху)
+                news.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                // Показываем только последние 5 новостей
+                const latestNews = news.slice(0, 5);
+                
+                let newsHTML = '';
+                latestNews.forEach(item => {
+                    const formattedDate = formatDate(item.date);
+                    const formattedContent = formatContentWithLinks(item.content);
+                    
+                    newsHTML += `
+                        <div class="news-item">
+                            <div class="news-date">${formattedDate}</div>
+                            <div class="news-title">${escapeHtml(item.title)}</div>
+                            <div class="news-content">${formattedContent}</div>
+                        </div>
+                    `;
+                });
+                
+                newsList.innerHTML = newsHTML;
+                
+            } catch (error) {
+                console.error('Ошибка загрузки новостей:', error);
+                newsList.innerHTML = `
+                    <div class="error-news">
+                        <p>Новости временно недоступны</p>
+                        <small>Проверьте подключение к интернету</small>
+                    </div>
+                `;
+            }
+        }
+        
+        // Автоматическое обновление новостей каждые 10 минут
+        setInterval(loadNewsFromGitHub, 10 * 60 * 1000);
+    </script>
+</body>
+</html>

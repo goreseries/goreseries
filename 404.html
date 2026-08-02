@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, shrink-to-fit=no">
+    <title>404 — Страница не найдена | GoreSeries Продакшн</title>
+
+    <link rel="icon" type="image/png" href="img/GSP_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ========== ПЕРЕМЕННЫЕ ========== */
+        :root {
+            --primary-red: #e63946;
+            --dark-red: #9d0208;
+            --deep-red: #6a040f;
+            --primary-orange: #f77f00;
+            --primary-yellow: #fcbf49;
+
+            --bg-dark: #0d0d0d;
+            --bg-darker: #050505;
+
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-muted: #666666;
+
+            --gradient-fire: linear-gradient(135deg, var(--dark-red), var(--primary-orange), var(--primary-yellow));
+            --gradient-sunset: linear-gradient(45deg, var(--deep-red), var(--primary-red), var(--primary-orange));
+
+            --shadow-glow: 0 0 30px rgba(230, 57, 70, 0.3);
+
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+
+            --border-radius: 12px;
+        }
+
+        /* ========== КАСТОМНЫЙ СКРОЛЛБАР ========== */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-darker);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-sunset);
+            border-radius: 6px;
+            border: 2px solid var(--bg-darker);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gradient-fire);
+            box-shadow: 0 0 10px rgba(230, 57, 70, 0.5);
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: var(--bg-darker);
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-red) var(--bg-darker);
+        }
+
+        /* ========== СБРОС ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            touch-action: pan-x pan-y;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(230, 57, 70, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(247, 127, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(252, 191, 73, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-normal);
+        }
+
+        /* ========== ЧАСТИЦЫ ========== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-orange);
+            animation: floatParticle 15s infinite ease-in-out;
+            filter: blur(1px);
+        }
+
+        @keyframes floatParticle {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.6; }
+            25% { transform: translateY(-100px) translateX(50px) scale(1.2); opacity: 0.8; }
+            50% { transform: translateY(-50px) translateX(-30px) scale(0.8); opacity: 0.4; }
+            75% { transform: translateY(-150px) translateX(20px) scale(1.1); opacity: 0.7; }
+        }
+
+        /* ========== ХЕДЕР ========== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(230, 57, 70, 0.2);
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 10px rgba(230, 57, 70, 0.5));
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            color: var(--text-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-fire);
+            transition: var(--transition-normal);
+            transform: translateX(-50%);
+        }
+
+        nav ul li a:hover {
+            color: var(--text-primary);
+        }
+
+        nav ul li a:hover::before {
+            width: 80%;
+        }
+
+        .discord-btn-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #5865F2, #7289da);
+            padding: 10px 20px !important;
+            border-radius: var(--border-radius) !important;
+            color: white !important;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+        }
+
+        .discord-btn-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(88, 101, 242, 0.5);
+        }
+
+        .discord-btn-header::before {
+            display: none !important;
+        }
+
+        /* ========== ПЛАВАЮЩАЯ КНОПКА DISCORD ========== */
+        .discord-btn-floating {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #5865F2, #7289da);
+            padding: 15px 25px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 5px 30px rgba(88, 101, 242, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        .discord-btn-floating:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 40px rgba(88, 101, 242, 0.6);
+        }
+
+        .discord-btn-floating i {
+            font-size: 1.4rem;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 5px 30px rgba(88, 101, 242, 0.4); }
+            50% { box-shadow: 0 5px 40px rgba(88, 101, 242, 0.7); }
+        }
+
+        /* ========== КНОПКИ ========== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            background: var(--gradient-sunset);
+            color: white;
+            box-shadow: 0 5px 25px rgba(230, 57, 70, 0.3);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition-slow);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(230, 57, 70, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-red);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--gradient-sunset);
+            border-color: transparent;
+            box-shadow: 0 8px 35px rgba(230, 57, 70, 0.5);
+        }
+
+        /* ========== ФУТЕР ========== */
+        footer {
+            background: var(--bg-darker);
+            padding: 50px 0;
+            border-top: 1px solid rgba(230, 57, 70, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-fire);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo i {
+            font-size: 2rem;
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-logo h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .copyright p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ========== СЕКЦИЯ 404 ========== */
+        .error-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 160px 20px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .error-code {
+            font-size: clamp(90px, 20vw, 220px);
+            font-weight: 900;
+            line-height: 1;
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--shadow-glow);
+            letter-spacing: 4px;
+            margin: 0;
+        }
+
+        .error-icon {
+            font-size: 48px;
+            color: var(--primary-orange);
+            margin-bottom: 10px;
+            animation: pulse-icon 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+
+        .error-title {
+            font-size: clamp(22px, 4vw, 32px);
+            color: var(--text-primary);
+            margin: 20px 0 10px;
+        }
+
+        .error-desc {
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 35px;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+
+        .error-btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ========== АДАПТИВНОСТЬ ========== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            nav ul li a {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .discord-btn-header {
+                padding: 8px 15px !important;
+                font-size: 0.85rem;
+            }
+
+            .discord-btn-floating {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+            }
+
+            .discord-btn-floating span {
+                display: none;
+            }
+
+            .error-section {
+                padding: 200px 20px 60px;
+            }
+
+            .error-icon {
+                font-size: 40px;
+            }
+
+            .error-btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .error-btn-group .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+
+            .logo-icon {
+                font-size: 1.6rem;
+            }
+
+            nav ul li a {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+
+            .discord-btn-header {
+                padding: 6px 12px !important;
+                font-size: 0.8rem;
+            }
+
+            .error-section {
+                padding: 220px 15px 50px;
+            }
+
+            .error-code {
+                letter-spacing: 2px;
+            }
+
+            .error-icon {
+                font-size: 34px;
+            }
+
+            .error-desc {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            nav ul {
+                gap: 5px;
+            }
+
+            nav ul li a {
+                padding: 5px 10px;
+                font-size: 0.75rem;
+            }
+
+            .discord-btn-header {
+                padding: 5px 10px !important;
+                font-size: 0.75rem;
+            }
+
+            .error-section {
+                padding: 240px 12px 40px;
+            }
+
+            .error-title {
+                font-size: 20px;
+            }
+
+            .error-desc {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Floating Discord Button -->
+    <a href="https://discord.gg/YcGrg2nSQz" class="discord-btn-floating" target="_blank">
+        <i class="fab fa-discord"></i>
+        <span>Discord</span>
+    </a>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-film logo-icon"></i>
+                    <h1>GoreSeries</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="index.html#projects">Проекты</a></li>
+                        <li><a href="about.html">О нас</a></li>
+                        <li>
+                            <a href="https://discord.gg/YcGrg2nSQz" class="discord-btn-header" target="_blank">
+                                <i class="fab fa-discord"></i>
+                                Discord
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 404 Section -->
+    <section class="error-section">
+        <div class="container">
+            <div class="error-icon">
+                <i class="fas fa-skull-crossbones"></i>
+            </div>
+            <h2 class="error-code">404</h2>
+            <h3 class="error-title">Страница не найдена</h3>
+            <p class="error-desc">
+                Похоже, вы зашли на страницу которой не существует.
+            </p>
+            <div class="error-btn-group">
+                <a href="index.html" class="btn">
+                    <i class="fas fa-home"></i>
+                    На главную
+                </a>
+                <a href="index.html#projects" class="btn btn-outline">
+                    <i class="fas fa-play"></i>
+                    Смотреть проекты
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-film"></i>
+                    <h2>GoreSeries Продакшн</h2>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 GoreSeries Продакшн.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Создание частиц для фона
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+
+            // Блокировка масштабирования
+            document.body.addEventListener('touchmove', function(e) {
+                if (e.touches.length >= 2) {
+                    e.preventDefault();
+                    return false;
+                }
+            }, { passive: false });
+
+            let lastTouchEnd = 0;
+            document.body.addEventListener('touchend', function(e) {
+                const now = Date.now();
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                    return false;
+                }
+                lastTouchEnd = now;
+            }, false);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <!-- Запрет масштабирования (приближения) на мобильных устройствах, но без блокировки клавиш -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, shrink-to-fit=no">
+    <title>Кондиции... - GoreSeries Продакшн</title>
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GoreSeries Продакшн">
+    <meta name="twitter:description" content="GoreSeries Продакшн - команда, которая делает ИИ-сериалы с понятными сюжетами">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/goreseries/goreseries/refs/heads/main/img/kondicii.jpg">
+
+    <meta property="og:title" content="GoreSeries Продакшн">
+    <meta property="og:description" content="GoreSeries Продакшн - команда, которая делает ИИ-сериалы с понятными сюжетами">
+    <meta property="og:image" content="https://raw.githubusercontent.com/goreseries/goreseries/refs/heads/main/img/kondicii.jpg">
+    <meta property="og:image:width" content="500"/>
+    <meta property="og:url" content="https://goreseries.c6t.ru/">
+
+    <link rel="icon" type="image/png" href="img/GSP_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/project2.css">
+</head>
+<body>
+    <!-- Energy Drink Pattern Background -->
+    <div class="energy-pattern"></div>
+    
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Floating Discord Button -->
+    <a href="https://discord.gg/YcGrg2nSQz" class="discord-btn-floating" target="_blank">
+        <i class="fab fa-discord"></i>
+        <span>Discord</span>
+    </a>
+    
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-container">
+            <div class="video-header">
+                <div class="video-title" id="modalTitle">Просмотр серии</div>
+                <button class="close-btn" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="video-content" id="videoContent">
+                <video class="video-player" id="videoPlayer" controls controlsList="nodownload">
+                    Ваш браузер не поддерживает видео тег.
+                </video>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-bolt logo-icon"></i>
+                    <h1>GoreSeries</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="index.html#projects">Проекты</a></li>
+                        <li><a href="about.html">О нас</a></li>
+                        <li>
+                            <a href="https://discord.gg/YcGrg2nSQz" class="discord-btn-header" target="_blank">
+                                <i class="fab fa-discord"></i>
+                                Discord
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Project Hero Section -->
+    <section class="project-hero">
+        <div class="project-hero-bg"></div>
+        <div class="container">
+            <div class="project-hero-content">
+                <div class="project-poster">
+                    <img src="img/kondicii.jpg" alt="Кондиции...">
+                </div>
+                <div class="project-info">
+                    <h1>Кондиции...</h1>
+                    <div class="project-meta">
+                        <span><i class="fas fa-user"></i> By Rinswent</span>
+                        <span><i class="fas fa-calendar"></i> 2025</span>
+                        <span><i class="fas fa-play-circle"></i> 6 серий</span>
+                        <span><i class="fas fa-list-ol"></i> 2 сезона</span>
+                    </div>
+                    <p class="project-description">
+                        «...Самый лучший сериал 2025! Хит столетия! Кондиции! Вас в буквальном смысле затащит в глубину сюжета, в котором полно смысла и поворотов. Кто-то будет искать этот смысл, а кто-то будет просто угарать с видеоряда. Это вам решать, каким видеть данное кино...»
+                    </p>
+                    <div class="btn-group">
+                        <a href="#episodes" class="btn">
+                            <i class="fas fa-play"></i>
+                            Смотреть серии
+                        </a>
+                        <a href="index.html#projects" class="btn btn-outline">
+                            <i class="fas fa-arrow-left"></i>
+                            Назад к проектам
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Episodes Section -->
+    <section class="section" id="episodes">
+        <div class="container">
+            <div class="section-title">
+                <h2>1 сезон</h2>
+            </div>
+            <div class="episodes-grid">
+                <!-- Серия 1 -->
+                <div class="episode-card">
+                    <div class="episode-img" style="background-image: url('img/kondicii.jpg')"></div>
+                    <div class="episode-overlay">
+                        <button class="btn watch-btn" data-episode="1" data-video="https://www.dropbox.com/scl/fi/1p1qkwxm07bw5q7gdcb6c/SPOILER_1-1.mp4?rlkey=vspqdkdxv8kbcibcb9q7unalo&st=e4jt23xr&dl=1">
+                            <i class="fas fa-play"></i>
+                            Смотреть
+                        </button>
+                    </div>
+                    <div class="episode-info">
+                        <h3>1 серия: Что случилось?</h3>
+                        <p>Развёртка первых событий и завязка сюжета.</p>
+                        <div class="episode-meta">
+                            <span>01:43</span>
+                            <span class="status-badge available">Доступно</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Серия 2 -->
+                <div class="episode-card">
+                    <div class="episode-img" style="background-image: url('img/kondicii.jpg')"></div>
+                    <div class="episode-overlay">
+                        <button class="btn watch-btn" data-episode="2" data-video="https://www.dropbox.com/scl/fi/yndu9cjl3fan4muaxps6q/SPOILER_1-2.mp4?rlkey=zpa2iump08y3q6bygeo3r1g1h&st=1qalmxox&dl=1">
+                            <i class="fas fa-play"></i>
+                            Смотреть
+                        </button>
+                    </div>
+                    <div class="episode-info">
+                        <h3>2 серия: Последствия</h3>
+                        <p>Первые последствия и проблемы из-за обстоятельств.</p>
+                        <div class="episode-meta">
+                            <span>01:52</span>
+                            <span class="status-badge available">Доступно</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Серия 3 -->
+                <div class="episode-card">
+                    <div class="episode-img" style="background-image: url('img/kondicii.jpg')"></div>
+                    <div class="episode-overlay">
+                        <button class="btn watch-btn" data-episode="3" data-video="https://www.dropbox.com/scl/fi/x6zehtgsjxdv121f64lnj/SPOILER_1-3.mp4?rlkey=zee9m6v47dr96wzmv7ddh613v&st=zydajq2d&dl=1">
+                            <i class="fas fa-play"></i>
+                            Смотреть
+                        </button>
+                    </div>
+                    <div class="episode-info">
+                        <h3>3 серия: Пошло-поехало.</h3>
+                        <p>Хронология покажет необратимость процесса.</p>
+                        <div class="episode-meta">
+                            <span>01:44</span>
+                            <span class="status-badge available">Доступно</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Серия 4 -->
+                <div class="episode-card">
+                    <div class="episode-img" style="background-image: url('img/kondicii.jpg')"></div>
+                    <div class="episode-overlay">
+                        <button class="btn watch-btn" data-episode="4" data-video="https://www.dropbox.com/scl/fi/0v09r0nosry4vp56d3crx/1-4.mp4?rlkey=fdtvjq7cxsj64mwv6w6hpv9z1&st=nqzwz94q&dl=1">
+                            <i class="fas fa-play"></i>
+                            Смотреть
+                        </button>
+                    </div>
+                    <div class="episode-info">
+                        <h3>4 серия: Стабильно?</h3>
+                        <p>Очередные неприятные инциденты и...</p>
+                        <div class="episode-meta">
+                            <span>02:44</span>
+                            <span class="status-badge available">Доступно</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Серия 5 -->
+                <div class="episode-card">
+                    <div class="episode-img" style="background-image: url('img/kondicii.jpg')"></div>
+                    <div class="episode-overlay">
+                        <button class="btn watch-btn" data-episode="5" data-video="https://www.dropbox.com/scl/fi/zfe9iz1vydbcodsje1y96/5-..mp4?rlkey=bhxr0np0wk1pdi7n01bjbhg3d&st=zygzxy4j&dl=1">
+                            <i class="fas fa-play"></i>
+                            Смотреть
+                        </button>
+                    </div>
+                    <div class="episode-info">
+                        <h3>5 серия: Без названия</h3>
+                        <p>Прелюдия к коллапсу.</p>
+                        <div class="episode-meta">
+                            <span>02:20</span>
+                            <span class="status-badge available">Доступно</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Серия 6 -->
+                <div class="episode-card">
+                    <div class="episode-img" style="background-image: url('img/kondicii.jpg')"></div>
+                    <div class="episode-overlay">
+                        <button class="btn watch-btn" data-episode="6" data-video="https://www.dropbox.com/scl/fi/c9p98s9w7g7gmd3d67ntk/6-..mp4?rlkey=vyw2hqd0ioq6uwd0gtsx9hf75&st=6rxkew1x&dl=1">
+                            <i class="fas fa-play"></i>
+                            Смотреть
+                        </button>
+                    </div>
+                    <div class="episode-info">
+                        <h3>6 серия: Монстр Энерджи</h3>
+                        <p>Начало конца.</p>
+                        <div class="episode-meta">
+                            <span>03:36</span>
+                            <span class="status-badge available">Доступно</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--2 сезон-->
+            <div class="section-title">
+                <h2>2 сезон (В разработке)</h2>
+            </div>
+            <div class="episodes-grid">
+                <!-- Пустой блок для 2 сезона (в разработке) -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-bolt"></i>
+                    <h2>GoreSeries Продакшн</h2>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 GoreSeries Продакшн.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Создание частиц для фона
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                
+                const colors = ['var(--energy-red)', 'var(--energy-blue)', 'var(--accent-red)', 'var(--accent-blue)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Плавная прокрутка
+            document.querySelectorAll('nav a, .btn[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Обработчики для кнопок просмотра серий
+            const videoModal = document.getElementById('videoModal');
+            const closeModal = document.getElementById('closeModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const watchButtons = document.querySelectorAll('.watch-btn');
+
+            // Открытие модального окна
+            watchButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const episodeTitle = this.closest('.episode-card').querySelector('h3').textContent;
+                    const videoUrl = this.getAttribute('data-video');
+                    
+                    modalTitle.textContent = episodeTitle;
+                    
+                    // Загружаем и показываем видео
+                    if (videoUrl) {
+                        videoPlayer.src = videoUrl;
+                        videoPlayer.load();
+                        videoPlayer.style.display = 'block';
+                        
+                        videoPlayer.addEventListener('error', function() {
+                            console.error('Ошибка загрузки видео:', videoUrl);
+                            alert('Не удалось загрузить видео. Пожалуйста, проверьте ссылку или попробуйте позже.');
+                        });
+                    }
+                    
+                    videoModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // Закрытие модального окна
+            closeModal.addEventListener('click', function() {
+                videoModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                videoPlayer.pause();
+                videoPlayer.currentTime = 0;
+            });
+
+            // Закрытие модального окна при клике вне его
+            videoModal.addEventListener('click', function(e) {
+                if (e.target === videoModal) {
+                    videoModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    videoPlayer.pause();
+                    videoPlayer.currentTime = 0;
+                }
+            });
+
+            // Закрытие модального окна клавишей ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                    videoModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    videoPlayer.pause();
+                    videoPlayer.currentTime = 0;
+                }
+            });
+            
+            // ========== ТОЛЬКО ЗАПРЕТ ЖЕСТОВ (БЕЗ БЛОКИРОВКИ КЛАВИШ) ==========
+            // Запрещаем только pinch-zoom двумя пальцами на тач-устройствах
+            document.body.addEventListener('touchmove', function(e) {
+                if (e.touches.length >= 2) {
+                    e.preventDefault();
+                    return false;
+                }
+            }, { passive: false });
+            
+            // Запрещаем double-tap zoom
+            let lastTouchEnd = 0;
+            document.body.addEventListener('touchend', function(e) {
+                const now = Date.now();
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                    return false;
+                }
+                lastTouchEnd = now;
+            }, false);
+            
+            // Только touch-action уже добавлен в CSS, но продублируем на все элементы для надежности
+            const allElements = document.querySelectorAll('*');
+            allElements.forEach(el => {
+                el.style.touchAction = 'pan-x pan-y';
+            });
+        });
+    </script>
+</body>
+</html>
